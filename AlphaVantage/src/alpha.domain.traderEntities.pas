@@ -1,4 +1,4 @@
-﻿unit alpha.domain.entities;
+﻿unit alpha.domain.traderEntities;
 
 interface
 
@@ -20,28 +20,35 @@ type
     Yield10Year // 10-Year Treasury Constant Maturity Rate
   );
 
-  [Entity, AutoMapping]
-  TIndicator = class
+  [Entity, AutoMapping, Model('Entity')]
+  TEntity = class
   private
-    FID: Integer;
+    FID: Int64;
+  public
+    property ID: Int64 read FID write FID;
+  end;
+
+  [Entity, AutoMapping]
+  TIndicator = class(TEntity)
+  private
     FName: string;
     FInterval: string;
     FUnit: string;
   public
-    property ID: Integer read FID write FID;
+    property ID;
     property Name: string read FName write FName;
     property Interval: string read FInterval write FInterval;
     property &Unit: string read FUnit write FUnit;
   end;
 
-  TRawData = class
+  [Entity, AutoMapping]
+  TRawData = class(TEntity)
   private
-    FID: Integer;
     FIndicatorID: Integer;
     FDate: string;
     FValue: Double;
   public
-    property ID: Integer read FID write FID;
+    property ID;
     property IndicatorID: Integer read FIndicatorID write FIndicatorID;
     property Date: string read FDate write FDate;
     property Value: Double read FValue write FValue;

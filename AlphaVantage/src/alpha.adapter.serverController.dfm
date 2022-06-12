@@ -17,9 +17,9 @@ object AlphaAdapterServerController: TAlphaAdapterServerController
   TextHeight = 32
   object GridPanel1: TGridPanel
     Left = 0
-    Top = 82
+    Top = 162
     Width = 1626
-    Height = 860
+    Height = 780
     Margins.Left = 6
     Margins.Top = 6
     Margins.Right = 6
@@ -33,28 +33,35 @@ object AlphaAdapterServerController: TAlphaAdapterServerController
         Value = 33.333333333333340000
       end
       item
-        Value = 33.333333333333340000
+        Value = 33.333333333333310000
       end>
     ControlCollection = <
       item
         Column = 0
         Control = ListInflation
         Row = 0
+      end
+      item
+        Column = 1
+        Control = ListCpi
+        Row = 0
+      end
+      item
+        Column = 2
+        Control = ListYield10Y
+        Row = 0
       end>
+    Locked = True
     RowCollection = <
       item
         Value = 100.000000000000000000
       end>
     TabOrder = 0
-    ExplicitLeft = 768
-    ExplicitTop = 256
-    ExplicitWidth = 370
-    ExplicitHeight = 82
     object ListInflation: TControlList
       Left = 1
       Top = 1
       Width = 541
-      Height = 858
+      Height = 778
       Margins.Left = 6
       Margins.Top = 6
       Margins.Right = 6
@@ -68,11 +75,7 @@ object AlphaAdapterServerController: TAlphaAdapterServerController
       ParentColor = False
       TabOrder = 0
       OnBeforeDrawItem = ListInflationBeforeDrawItem
-      ExplicitLeft = -30
-      ExplicitTop = -318
-      ExplicitWidth = 400
-      ExplicitHeight = 400
-      object Label1: TLabel
+      object LabelInflationData: TLabel
         Left = 0
         Top = 0
         Width = 537
@@ -82,8 +85,72 @@ object AlphaAdapterServerController: TAlphaAdapterServerController
         Margins.Right = 6
         Margins.Bottom = 6
         Align = alTop
-        Caption = 'Label1'
-        ExplicitWidth = 69
+        Caption = 'LabelData'
+        ExplicitWidth = 105
+      end
+    end
+    object ListCpi: TControlList
+      Left = 542
+      Top = 1
+      Width = 542
+      Height = 778
+      Margins.Left = 6
+      Margins.Top = 6
+      Margins.Right = 6
+      Margins.Bottom = 6
+      Align = alClient
+      ItemHeight = 34
+      ItemMargins.Left = 0
+      ItemMargins.Top = 0
+      ItemMargins.Right = 0
+      ItemMargins.Bottom = 0
+      ParentColor = False
+      TabOrder = 1
+      OnBeforeDrawItem = ListCpiBeforeDrawItem
+      object LabelCpiData: TLabel
+        Left = 0
+        Top = 0
+        Width = 538
+        Height = 32
+        Margins.Left = 6
+        Margins.Top = 6
+        Margins.Right = 6
+        Margins.Bottom = 6
+        Align = alTop
+        Caption = 'LabelData'
+        ExplicitWidth = 105
+      end
+    end
+    object ListYield10Y: TControlList
+      Left = 1084
+      Top = 1
+      Width = 541
+      Height = 778
+      Margins.Left = 6
+      Margins.Top = 6
+      Margins.Right = 6
+      Margins.Bottom = 6
+      Align = alClient
+      ItemHeight = 34
+      ItemMargins.Left = 0
+      ItemMargins.Top = 0
+      ItemMargins.Right = 0
+      ItemMargins.Bottom = 0
+      ParentColor = False
+      TabOrder = 2
+      OnBeforeDrawItem = ListYield10YBeforeDrawItem
+      object LabelYield10YData: TLabel
+        Left = 0
+        Top = 0
+        Width = 537
+        Height = 32
+        Margins.Left = 6
+        Margins.Top = 6
+        Margins.Right = 6
+        Margins.Bottom = 6
+        Align = alTop
+        Caption = 'LabelData'
+        ExplicitWidth = 105
       end
     end
   end
@@ -99,9 +166,6 @@ object AlphaAdapterServerController: TAlphaAdapterServerController
     Align = alTop
     BevelOuter = bvLowered
     TabOrder = 1
-    ExplicitLeft = 832
-    ExplicitTop = 688
-    ExplicitWidth = 370
     object ButtonSync: TButton
       Left = 27
       Top = 17
@@ -114,6 +178,126 @@ object AlphaAdapterServerController: TAlphaAdapterServerController
       Caption = 'Syncronize'
       TabOrder = 0
       OnClick = ButtonSyncClick
+    end
+    object ButtonSave: TButton
+      Left = 189
+      Top = 17
+      Width = 150
+      Height = 50
+      Margins.Left = 6
+      Margins.Top = 6
+      Margins.Right = 6
+      Margins.Bottom = 6
+      Caption = 'Save'
+      TabOrder = 1
+      OnClick = ButtonSaveClick
+    end
+  end
+  object GridPanel2: TGridPanel
+    Left = 0
+    Top = 82
+    Width = 1626
+    Height = 80
+    Margins.Left = 6
+    Margins.Top = 6
+    Margins.Right = 6
+    Margins.Bottom = 6
+    Align = alTop
+    BevelOuter = bvNone
+    ColumnCollection = <
+      item
+        Value = 33.333333333333340000
+      end
+      item
+        Value = 33.333333333333340000
+      end
+      item
+        Value = 33.333333333333310000
+      end>
+    ControlCollection = <
+      item
+        Column = 0
+        Control = LabelInflation
+        Row = 0
+      end
+      item
+        Column = 1
+        Control = LabelCpi
+        Row = 0
+      end
+      item
+        Column = 2
+        Control = LabelYield10Y
+        Row = 0
+      end>
+    Locked = True
+    RowCollection = <
+      item
+        Value = 100.000000000000000000
+      end>
+    TabOrder = 2
+    object LabelInflation: TLabel
+      AlignWithMargins = True
+      Left = 6
+      Top = 6
+      Width = 530
+      Height = 68
+      Margins.Left = 6
+      Margins.Top = 6
+      Margins.Right = 6
+      Margins.Bottom = 6
+      Align = alClient
+      Caption = 'LabelInflation'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -24
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitWidth = 158
+      ExplicitHeight = 32
+    end
+    object LabelCpi: TLabel
+      AlignWithMargins = True
+      Left = 548
+      Top = 6
+      Width = 530
+      Height = 68
+      Margins.Left = 6
+      Margins.Top = 6
+      Margins.Right = 6
+      Margins.Bottom = 6
+      Align = alClient
+      Caption = 'LabelCpi'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -24
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitWidth = 97
+      ExplicitHeight = 32
+    end
+    object LabelYield10Y: TLabel
+      AlignWithMargins = True
+      Left = 1090
+      Top = 6
+      Width = 530
+      Height = 68
+      Margins.Left = 6
+      Margins.Top = 6
+      Margins.Right = 6
+      Margins.Bottom = 6
+      Align = alClient
+      Caption = 'LabelYield10Y'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -24
+      Font.Name = 'Segoe UI'
+      Font.Style = [fsBold]
+      ParentFont = False
+      ExplicitWidth = 160
+      ExplicitHeight = 32
     end
   end
 end

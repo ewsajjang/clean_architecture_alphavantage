@@ -31,12 +31,14 @@ type
   public
     destructor Destroy; override;
 
+    function ToLabelText: string;
+
     property Name: string index 0 read GetString;
     property Interval: string index 1 read GetString;
     property &Unit: string index 2 read GetString;
     property Datas: TEnumerable<T> read GetEnumerable;
     property DataCnt: Integer read GetDataCnt;
-    property DataItems[Index: Integer]: T read GetDataItems;
+    property DataItems[Index: Integer]: T read GetDataItems; default;
   end;
   [FieldInPrivate]
   TAlphaData = class(TJsonBody)
@@ -45,6 +47,7 @@ type
     Fvalue: TNullableString;
     function GetString(const Index: Integer): string;
   public
+    function ToLabelText: string;
     property Date: string index 0 read GetString;
     property Value: string index 1 read GetString;
   end;
@@ -111,6 +114,11 @@ begin
   end;
 end;
 
+function TAlphaBody<T>.ToLabelText: string;
+begin
+  Result := Format('%s'#13#10'%s(%s)', [Name, &Unit, Interval]);
+end;
+
 { TAlphaData }
 
 function TAlphaData.GetString(const Index: Integer): string;
@@ -120,6 +128,11 @@ begin
     0: if Fdate.HasValue then Result := Fdate.Value;
     1: if Fvalue.HasValue then Result := Fvalue.Value;
   end;
+end;
+
+function TAlphaData.ToLabelText: string;
+begin
+  Result := Format('%.11s: %s', [Date, Value.Substring(0, 3)]);
 end;
 
 { TAlphaTask }

@@ -111,39 +111,33 @@
         </DelphiCompile>
         <DCCReference Include="v.main.pas">
             <Form>vMain</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="alpha.query.adapter.pas"/>
-        <DCCReference Include="alpha.query.port.pas"/>
         <DCCReference Include="alpha.adapter.serverController.pas">
             <Form>AlphaAdapterServerController</Form>
-            <FormType>dfm</FormType>
         </DCCReference>
-        <DCCReference Include="alpha.domain.entities.pas"/>
+        <DCCReference Include="alpha.domain.traderEntities.pas"/>
         <DCCReference Include="alpha.portIn.serverUseCase.pas"/>
         <DCCReference Include="alpha.portIn.traderUseCase.pas"/>
-        <DCCReference Include="alpha.portOut.serverUseCase.pas"/>
-        <DCCReference Include="alpha.portOut.traderUseCase.pas"/>
         <DCCReference Include="alpha.adapter.serverService.pas">
             <Form>alphaAdapterServerService</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\__lib\m.httpClient.pas"/>
         <DCCReference Include="alpha.domain.serverEntities.pas"/>
         <DCCReference Include="factory.db.pas">
             <Form>factoryDB</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\__lib\m.objMngTh.pas"/>
         <DCCReference Include="factory.pas">
             <Form>factoryMain</Form>
-            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="m.httpService.pas"/>
+        <DCCReference Include="alpha.adapter.traderService.pas"/>
+        <DCCReference Include="alpha.portOut.traderUseCase.pas"/>
         <None Include="logger.inc"/>
+        <None Include="db.inc"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -173,6 +167,12 @@
                 <DeployFile LocalName="..\bin\Win32.Debug\alphaVentage.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>alphaVentage.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="db.inc" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

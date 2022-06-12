@@ -12,7 +12,6 @@ type
   TDataModule = TwpLogDataModule;
   TfactoryMain = class(TDataModule)
   private
-    class constructor Create;
   public
   end;
 
@@ -28,12 +27,5 @@ implementation
 uses
   Spring.Container
   ;
-
-{ TfactoryMain }
-
-class constructor TfactoryMain.Create;
-begin
-  GlobalContainer.Build;
-end;
 
 end.

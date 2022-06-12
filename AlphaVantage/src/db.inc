@@ -1,0 +1,2 @@
+﻿{.$DEFINE DB_FILE}
+{$DEFINE DB_MEMORY}
