@@ -3,7 +3,7 @@
 interface
 
 uses
-  portOut.traderUseCase,
+  portOut.cmd.traderUseCase,
 
   wp.Forms,
 
@@ -17,7 +17,7 @@ type
     TabTraderUseCase: TTabSheet;
     procedure FormCreate(Sender: TObject);
   private
-    FPortOutTraderUseCase: IPortOutTraderUseCase;
+    FCmdTraderUseCase: ICmdTraderUseCase;
   public
   end;
 
@@ -29,19 +29,19 @@ implementation
 {$R *.dfm}
 
 uses
-  adapter.serverController, adapter.indicatorController,
+  adapterOut.qry.serverController, adapter.trader.indicatorController,
 
   Spring.Container
   ;
 
 procedure TvMain.FormCreate(Sender: TObject);
 begin
-  FPortOutTraderUseCase := GlobalContainer.Resolve<IPortOutTraderUseCase>;
-  FPortOutTraderUseCase.PortOutEvent.OnSave.Subscribe(Self, procedure begin
+  FCmdTraderUseCase := GlobalContainer.Resolve<ICmdTraderUseCase>;
+  FCmdTraderUseCase.Event.OnSave.Subscribe(Self, procedure begin
     PageControl.ActivePage := TabTraderUseCase;
   end);
 
-  AdapterServerController := PlaceOn<TAdapterServerController>(TabServerUseCase);
+  AdapterOutServerController := PlaceOn<TAdapterOutServerController>(TabServerUseCase);
   AdapterIndicatorControl := PlaceOn<TAdapterIndicatorControl>(TabTraderUseCase);
 end;
 

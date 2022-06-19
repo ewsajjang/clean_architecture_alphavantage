@@ -148,7 +148,57 @@ object AdapterIndicatorControl: TAdapterIndicatorControl
     Version = '2.5.1.11'
     AutoCreateColumns = True
     AutoRemoveColumns = True
-    Columns = <>
+    Columns = <
+      item
+        Borders = []
+        BorderPen.Color = clSilver
+        ButtonHeight = 18
+        CheckFalse = 'N'
+        CheckTrue = 'Y'
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        HeaderFont.Charset = DEFAULT_CHARSET
+        HeaderFont.Color = clWindowText
+        HeaderFont.Height = -24
+        HeaderFont.Name = 'Segoe UI'
+        HeaderFont.Style = []
+        PrintBorders = [cbTop, cbLeft, cbRight, cbBottom]
+        PrintFont.Charset = DEFAULT_CHARSET
+        PrintFont.Color = clWindowText
+        PrintFont.Height = -24
+        PrintFont.Name = 'Segoe UI'
+        PrintFont.Style = []
+        Width = 40
+      end
+      item
+        Borders = []
+        BorderPen.Color = clSilver
+        ButtonHeight = 18
+        CheckFalse = 'N'
+        CheckTrue = 'Y'
+        Color = clWindow
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -24
+        Font.Name = 'Segoe UI'
+        Font.Style = []
+        HeaderFont.Charset = DEFAULT_CHARSET
+        HeaderFont.Color = clWindowText
+        HeaderFont.Height = -24
+        HeaderFont.Name = 'Segoe UI'
+        HeaderFont.Style = []
+        PrintBorders = [cbTop, cbLeft, cbRight, cbBottom]
+        PrintFont.Charset = DEFAULT_CHARSET
+        PrintFont.Color = clWindowText
+        PrintFont.Height = -24
+        PrintFont.Name = 'Segoe UI'
+        PrintFont.Style = []
+        Width = 1372
+      end>
     DataSource = DataSource
     InvalidPicture.Data = {
       055449636F6E0000010001004040200000000000284200001600000028000000

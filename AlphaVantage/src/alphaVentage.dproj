@@ -112,14 +112,13 @@
         <DCCReference Include="v.main.pas">
             <Form>vMain</Form>
         </DCCReference>
-        <DCCReference Include="server\adapter.serverController.pas">
-            <Form>AdapterServerController</Form>
+        <DCCReference Include="server\adapterOut.qry.serverController.pas">
+            <Form>AdapterOutServerController</Form>
         </DCCReference>
         <DCCReference Include="trader\domain.traderEntities.pas"/>
-        <DCCReference Include="server\portIn.serverUseCase.pas"/>
-        <DCCReference Include="trader\portIn.traderUseCase.pas"/>
-        <DCCReference Include="server\adapter.serverService.pas">
-            <Form>adapterServerService</Form>
+        <DCCReference Include="server\portOut.qry.serverUseCase.pas"/>
+        <DCCReference Include="server\service.qry.server.pas">
+            <Form>serviceCmdServer</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
         <DCCReference Include="..\__lib\m.httpClient.pas"/>
@@ -128,18 +127,18 @@
             <Form>factoryDB</Form>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\__lib\m.objMngTh.pas"/>
-        <DCCReference Include="factory.pas">
-            <Form>factoryMain</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
-        <DCCReference Include="m.httpService.pas"/>
-        <DCCReference Include="trader\adapter.traderService.pas"/>
-        <DCCReference Include="trader\portOut.traderUseCase.pas"/>
-        <DCCReference Include="trader\adapter.indicatorController.pas">
+        <DCCReference Include="..\__lib\wp.Aurelius.Engine.ObjectManager.pas"/>
+        <DCCReference Include="m.httpAdapter.pas"/>
+        <DCCReference Include="trader\service.cmd.trader.pas"/>
+        <DCCReference Include="trader\adapter.trader.indicatorController.pas">
             <Form>AdapterIndicatorControl</Form>
             <FormType>dfm</FormType>
         </DCCReference>
+        <DCCReference Include="trader\portOut.qry.traderUseCase.pas"/>
+        <DCCReference Include="trader\adapterOut.qry.traderPersistence.pas"/>
+        <DCCReference Include="trader\portOut.cmd.traderUseCase.pas"/>
+        <DCCReference Include="trader\adapterOut.cmd.traderPersistence.pas"/>
+        <DCCReference Include="server\adapterOut.qry.serverPersistence.pas"/>
         <None Include="logger.inc"/>
         <None Include="db.inc"/>
         <BuildConfiguration Include="Base">

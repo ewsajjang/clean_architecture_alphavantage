@@ -1,4 +1,4 @@
-object adapterServerService: TadapterServerService
+object serviceCmdServer: TserviceCmdServer
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 518

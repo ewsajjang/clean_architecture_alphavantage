@@ -1,9 +1,9 @@
-﻿unit adapter.indicatorController;
+﻿unit adapter.trader.indicatorController;
 
 interface
 
 uses
-  portOut.traderUseCase, portIn.traderUseCase, domain.traderEntities,
+  domain.traderEntities, portOut.qry.traderUseCase, portOut.cmd.traderUseCase,
 
   wp.log,
 
@@ -26,8 +26,8 @@ type
     procedure FormCreate(Sender: TObject);
   private
     FIndicators: TList<TIndicator>;
-    FPortOutTraderUseCase: IPortOutTraderUseCase;
-    FPortInTraderUseCase: IPortInTraderUseCase;
+    FCmdTraderUseCase: ICmdTraderUseCase;
+    FQryTraderUseCase: IQryTraderUseCase;
     procedure LoadIndicators(AList: TIndicatorList);
   public
   end;
@@ -47,21 +47,21 @@ procedure TAdapterIndicatorControl.FormCreate(Sender: TObject);
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
-  FPortOutTraderUseCase := GlobalContainer.Resolve<IPortOutTraderUseCase>;
-  FPortOutTraderUseCase.PortOutEvent.OnSave.Subscribe(
-    Self,
-    procedure
-    begin
-      FPortInTraderUseCase.LoadIndicator;
-    end);
-
-  FPortInTraderUseCase := GlobalContainer.Resolve<IPortInTraderUseCase>;
-  FPortInTraderUseCase.Event.OnIndicatorList.Subscribe(
+  FQryTraderUseCase := GlobalContainer.Resolve<IQryTraderUseCase>;
+  FQryTraderUseCase.Event.OnLoadIndicators.Subscribe(
     Self,
     procedure(AList: TIndicatorList)
     begin
       FIndicators := AList;
       LoadIndicators(FIndicators);
+    end);
+
+  FCmdTraderUseCase := GlobalContainer.Resolve<ICmdTraderUseCase>;
+  FCmdTraderUseCase.Event.OnSave.Subscribe(
+    Self,
+    procedure
+    begin
+      FQryTraderUseCase.LoadIndicator;
     end);
 end;
 

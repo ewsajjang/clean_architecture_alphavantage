@@ -1,39 +1,39 @@
-﻿unit m.httpService;
+﻿unit m.httpAdapter;
 
 interface
 
 uses
-  m.objMngTh, m.httpClient, wp.log,
+  m.httpClient, wp.log,
 
   System.Classes, System.SysUtils, System.Generics.Collections
   ;
 
 type
-  THttpServiceDataModule = class(TwpLogDataModule)
+  TCustomHttpAdapter = class(TwpLogObject)
   private
     FTaskMng: THttpClientTaskMng<THttpBody, THttpBody>;
     FTaskQueue: TThreadedQueue<THttpClientTask<THttpBody, THttpBody>>;
     FHttpTh: THttpClientTh<THttpBody, THttpBody>;
   protected
-    procedure DoCreate; override;
-    procedure DoDestroy; override;
     procedure ASync(ATask: THttpClientTask);
     function Sync(ATask: THttpClientTask; out AErMsg: string): Boolean;
   public
+    constructor Create; virtual;
+    destructor Destroy; override;
   end;
 
 implementation
 
 { THttpServiceDataModule }
 
-procedure THttpServiceDataModule.ASync(ATask: THttpClientTask);
+procedure TCustomHttpAdapter.ASync(ATask: THttpClientTask);
 var
   LTask: THttpClientTask<THttpBody, THttpBody> absolute ATask;
 begin
   FTaskQueue.PushItem(LTask);
 end;
 
-procedure THttpServiceDataModule.DoCreate;
+constructor TCustomHttpAdapter.Create;
 begin
   inherited;
 
@@ -56,7 +56,7 @@ begin
   FHttpTh.Start;
 end;
 
-procedure THttpServiceDataModule.DoDestroy;
+destructor TCustomHttpAdapter.Destroy;
 begin
   FTaskMng.OnSessionHeader := nil;
   FTaskMng.Free;
@@ -76,7 +76,7 @@ begin
   inherited;
 end;
 
-function THttpServiceDataModule.Sync(ATask: THttpClientTask; out AErMsg: string): Boolean;
+function TCustomHttpAdapter.Sync(ATask: THttpClientTask; out AErMsg: string): Boolean;
 begin
   Result := FTaskMng.Execute(ATask as THttpClientTask<THttpBody, THttpBody>);
 end;

@@ -1,8 +1,8 @@
-object AdapterServerController: TAdapterServerController
+object AdapterOutServerController: TAdapterOutServerController
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  Caption = 'AdapterServerController'
+  Caption = 'AdapterOutQryServerController'
   ClientHeight = 942
   ClientWidth = 1626
   Color = clBtnFace

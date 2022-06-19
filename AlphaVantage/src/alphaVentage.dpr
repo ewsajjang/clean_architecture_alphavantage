@@ -6,20 +6,22 @@ uses
   System.SysUtils,
   Vcl.Forms,
   v.main in 'v.main.pas' {vMain},
-  adapter.serverController in 'server\adapter.serverController.pas' {AdapterServerController},
+  adapterOut.qry.serverController in 'server\adapterOut.qry.serverController.pas' {AdapterOutServerController},
   domain.traderEntities in 'trader\domain.traderEntities.pas',
-  portIn.serverUseCase in 'server\portIn.serverUseCase.pas',
-  portIn.traderUseCase in 'trader\portIn.traderUseCase.pas',
-  adapter.serverService in 'server\adapter.serverService.pas' {adapterServerService: TDataModule},
+  portOut.qry.serverUseCase in 'server\portOut.qry.serverUseCase.pas',
+  service.qry.server in 'server\service.qry.server.pas' {serviceCmdServer: TDataModule},
   m.httpClient in '..\__lib\m.httpClient.pas',
   domain.serverEntities in 'server\domain.serverEntities.pas',
   factory.db in 'factory.db.pas' {factoryDB: TDataModule},
-  m.objMngTh in '..\__lib\m.objMngTh.pas',
-  factory in 'factory.pas' {factoryMain: TDataModule},
-  m.httpService in 'm.httpService.pas',
-  adapter.traderService in 'trader\adapter.traderService.pas',
-  portOut.traderUseCase in 'trader\portOut.traderUseCase.pas',
-  adapter.indicatorController in 'trader\adapter.indicatorController.pas' {AdapterIndicatorControl};
+  wp.Aurelius.Engine.ObjectManager in '..\__lib\wp.Aurelius.Engine.ObjectManager.pas',
+  m.httpAdapter in 'm.httpAdapter.pas',
+  service.cmd.trader in 'trader\service.cmd.trader.pas',
+  adapter.trader.indicatorController in 'trader\adapter.trader.indicatorController.pas' {AdapterIndicatorControl},
+  portOut.qry.traderUseCase in 'trader\portOut.qry.traderUseCase.pas',
+  adapterOut.qry.traderPersistence in 'trader\adapterOut.qry.traderPersistence.pas',
+  portOut.cmd.traderUseCase in 'trader\portOut.cmd.traderUseCase.pas',
+  adapterOut.cmd.traderPersistence in 'trader\adapterOut.cmd.traderPersistence.pas',
+  adapterOut.qry.serverPersistence in 'server\adapterOut.qry.serverPersistence.pas';
 
 {$R *.res}
 
@@ -29,20 +31,16 @@ begin
   Application.CreateForm(TfactoryDB, factoryDB);
   factoryDB.Initialize('');
 
-  GlobalContainer.RegisterType<TAdapterServerService>
-    .Implements<IPortInServerUseCase>
-    .Implements<IPortOutTraderUseCase>
-    .InjectConstructor([Application])
-    .AsSingleton;
-  GlobalContainer.RegisterType<TAdapterTraderService>
-    .Implements<IPortInTraderUseCase>
-    .AsSingleton;
+  GlobalContainer.RegisterType<TQryServerAdapter>.Implements<IQryServerUseCase>.AsSingleton;
+  GlobalContainer.RegisterType<TQryTraderAdapter>.Implements<IQryTraderUseCase>.AsSingleton;
+  GlobalContainer.RegisterType<TCmdTraderAdapter>.Implements<ICmdTraderUseCase>.AsSingleton;
   GlobalContainer.Build;
 
-  Application.CreateForm(TfactoryMain, factoryMain);
+  Application.CreateForm(TserviceCmdServer, serviceCmdServer);
   Application.CreateForm(TvMain, vMain);
   ReportMemoryLeaksOnShutdown := DebugHook.ToBoolean;
+
   Application.Run;
 
-  GlobalContainer.Release(GlobalContainer.Resolve<IPortInTraderUseCase>);
+//  GlobalContainer.Release(GlobalContainer.Resolve<IPortInTraderUseCase>);
 end.
