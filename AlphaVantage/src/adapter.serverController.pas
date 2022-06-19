@@ -1,9 +1,9 @@
-﻿unit alpha.adapter.serverController;
+﻿unit adapter.serverController;
 
 interface
 
 uses
-  alpha.portIn.serverUseCase, alpha.portOut.traderUseCase,
+  portIn.serverUseCase, portOut.traderUseCase,
 
   wp.Forms,
 
@@ -11,7 +11,7 @@ uses
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ControlList;
 
 type
-  TAlphaAdapterServerController = class(TwpForm)
+  TAdapterServerController = class(TwpForm)
     ButtonSync: TButton;
     ListInflation: TControlList;
     GridPanel1: TGridPanel;
@@ -34,13 +34,13 @@ type
     procedure ListCpiBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
     procedure ListYield10YBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
   private
-    FServerUseCase: IAlphaPortInServerUseCase;
-    FTraderUseCase: IAlphaPortOutTraderUseCase;
+    FServerUseCase: IPortInServerUseCase;
+    FTraderUseCase: IPortOutTraderUseCase;
   public
   end;
 
 var
-  AlphaAdapterServerController: TAlphaAdapterServerController;
+  AdapterServerController: TAdapterServerController;
 
 implementation
 
@@ -50,22 +50,23 @@ uses
   Spring.Container
   ;
 
-procedure TAlphaAdapterServerController.ButtonSaveClick(Sender: TObject);
+procedure TAdapterServerController.ButtonSaveClick(Sender: TObject);
 begin
   FTraderUseCase.Save;
 end;
 
-procedure TAlphaAdapterServerController.ButtonSyncClick(Sender: TObject);
+procedure TAdapterServerController.ButtonSyncClick(Sender: TObject);
 begin
   FServerUseCase.ReqInflation;
   FServerUseCase.ReqCpi;
   FServerUseCase.ReqYield10Y;
 end;
 
-procedure TAlphaAdapterServerController.FormCreate(Sender: TObject);
+procedure TAdapterServerController.FormCreate(Sender: TObject);
 begin
-  FServerUseCase := GlobalContainer.Resolve<IAlphaPortInServerUseCase>;
-  FTraderUseCase := GlobalContainer.Resolve<IAlphaPortOutTraderUseCase>;
+  FTraderUseCase := GlobalContainer.Resolve<IPortOutTraderUseCase>;
+
+  FServerUseCase := GlobalContainer.Resolve<IPortInServerUseCase>;
   FServerUseCase.Event.OnInflation.Subscribe(
     Self,
     procedure
@@ -89,20 +90,20 @@ begin
     end);
 end;
 
-procedure TAlphaAdapterServerController.ListCpiBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect;
+procedure TAdapterServerController.ListCpiBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect;
   AState: TOwnerDrawState);
 begin
   if AIndex < FServerUseCase.Cpi.DataCnt then
     LabelCpiData.Caption := FServerUseCase.Cpi[AIndex].ToLabelText;
 end;
 
-procedure TAlphaAdapterServerController.ListInflationBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
+procedure TAdapterServerController.ListInflationBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
 begin
   if AIndex < FServerUseCase.Inflation.DataCnt then
     LabelInflationData.Caption := FServerUseCase.Inflation[AIndex].ToLabelText;
 end;
 
-procedure TAlphaAdapterServerController.ListYield10YBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect;
+procedure TAdapterServerController.ListYield10YBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect;
   AState: TOwnerDrawState);
 begin
   if AIndex < FServerUseCase.Yield10Y.DataCnt then

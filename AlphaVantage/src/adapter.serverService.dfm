@@ -1,4 +1,4 @@
-object alphaAdapterServerService: TalphaAdapterServerService
+object adapterServerService: TadapterServerService
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
   Height = 518

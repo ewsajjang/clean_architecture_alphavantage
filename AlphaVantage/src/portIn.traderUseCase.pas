@@ -1,9 +1,9 @@
-﻿unit alpha.portIn.traderUseCase;
+﻿unit portIn.traderUseCase;
 
 interface
 
 uses
-  alpha.domain.traderEntities,
+  domain.traderEntities,
 
   wp.Event,
 
@@ -11,19 +11,19 @@ uses
   ;
 
 type
-  TAlphaTraderEvent = class;
-  TAlphaTraderEventClass = class of TAlphaTraderEvent;
-  IAlphaTraderUseCase = interface
+  TTraderEvent = class;
+  TTraderEventClass = class of TTraderEvent;
+  ITraderUseCase = interface
     ['{512FBEC2-C535-45BD-86E3-7F15FDFF4C27}']
-    function GetEvent: TAlphaTraderEventClass;
+    function GetEvent: TTraderEventClass;
     procedure ASyncDelete(AEntity: TEntity);
     procedure ASyncUpdate(AEntity: TEntity);
     procedure ASyncSave(AEntity: TEntity); overload;
     procedure ASyncSave(AEntities: TArray<TEntity>); overload;
 
-    property Event: TAlphaTraderEventClass read GetEvent;
+    property Event: TTraderEventClass read GetEvent;
   end;
-  TAlphaTraderEvent = class
+  TTraderEvent = class
   class var
     OnSave: TEvent<TProc<TArray<Int64>>>;
     OnUpdate: TEvent<TProc<Int64>>;

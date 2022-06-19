@@ -1,8 +1,8 @@
-object AlphaAdapterServerController: TAlphaAdapterServerController
+object AdapterServerController: TAdapterServerController
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  Caption = 'AlphaAdapterServerController'
+  Caption = 'AdapterServerController'
   ClientHeight = 942
   ClientWidth = 1626
   Color = clBtnFace

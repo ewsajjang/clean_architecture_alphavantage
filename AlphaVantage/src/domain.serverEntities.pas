@@ -1,4 +1,4 @@
-﻿unit alpha.domain.serverEntities;
+﻿unit domain.serverEntities;
 
 interface
 

@@ -1,0 +1,48 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{73D68235-D7C9-4086-A20E-0E4486AEBDC1}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="alphaVentigeDB.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="alphaVentage.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="alphaVentigeDB">
+        <MSBuild Projects="alphaVentigeDB.dproj"/>
+    </Target>
+    <Target Name="alphaVentigeDB:Clean">
+        <MSBuild Projects="alphaVentigeDB.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="alphaVentigeDB:Make">
+        <MSBuild Projects="alphaVentigeDB.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="alphaVentage">
+        <MSBuild Projects="alphaVentage.dproj"/>
+    </Target>
+    <Target Name="alphaVentage:Clean">
+        <MSBuild Projects="alphaVentage.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="alphaVentage:Make">
+        <MSBuild Projects="alphaVentage.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="alphaVentigeDB;alphaVentage"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="alphaVentigeDB:Clean;alphaVentage:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="alphaVentigeDB:Make;alphaVentage:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

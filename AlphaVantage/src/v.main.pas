@@ -3,7 +3,7 @@
 interface
 
 uses
-  alpha.portOut.traderUseCase,
+  portOut.traderUseCase,
 
   wp.Forms,
 
@@ -17,7 +17,7 @@ type
     TabTraderUseCase: TTabSheet;
     procedure FormCreate(Sender: TObject);
   private
-    FPortOutTraderUseCase: IAlphaPortOutTraderUseCase;
+    FPortOutTraderUseCase: IPortOutTraderUseCase;
   public
   end;
 
@@ -29,18 +29,20 @@ implementation
 {$R *.dfm}
 
 uses
-  alpha.adapter.serverController,
+  adapter.serverController, adapter.indicatorController,
 
   Spring.Container
   ;
 
 procedure TvMain.FormCreate(Sender: TObject);
 begin
+  FPortOutTraderUseCase := GlobalContainer.Resolve<IPortOutTraderUseCase>;
+  FPortOutTraderUseCase.PortOutEvent.OnSave.Subscribe(Self, procedure begin
+    PageControl.ActivePage := TabTraderUseCase;
+  end);
 
-  FPortOutTraderUseCase := GlobalContainer.Resolve<IAlphaPortOutTraderUseCase>;
-  FPortOutTraderUseCase.PortOutEvent.OnSave.Subscribe(Self, procedure begin PageControl.ActivePage := TabTraderUseCase; end);
-
-  AlphaAdapterServerController := PlaceOn<TAlphaAdapterServerController>(TabServerUseCase);
+  AdapterServerController := PlaceOn<TAdapterServerController>(TabServerUseCase);
+  AdapterIndicatorControl := PlaceOn<TAdapterIndicatorControl>(TabTraderUseCase);
 end;
 
 end.

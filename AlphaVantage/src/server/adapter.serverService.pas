@@ -1,9 +1,9 @@
-﻿unit alpha.adapter.serverService;
+﻿unit adapter.serverService;
 
 interface
 
 uses
-  alpha.portIn.serverUseCase, alpha.domain.serverEntities, alpha.portOut.traderUseCase, alpha.domain.traderEntities,
+  portIn.serverUseCase, domain.serverEntities, portOut.traderUseCase, domain.traderEntities,
 
   m.httpService, m.objMngTh, wp.log, wp.Event,
   System.Generics.Collections, Spring.Collections,
@@ -12,12 +12,12 @@ uses
 
 type
   TDataModule = THttpServiceDataModule;
-  TalphaAdapterServerService = class(TDataModule, IAlphaPortInServerUseCase, IAlphaPortOutTraderUseCase)
+  TadapterServerService = class(TDataModule, IPortInServerUseCase, IPortOutTraderUseCase)
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
-    FPortInEvent: TAlphaPortInServerEventClass;
-    FPortOutEvent: TAlphaPortOutTraderEventClass;
+    FPortInEvent: TPortInServerEventClass;
+    FPortOutEvent: TPortOutTraderEventClass;
     FInflationRsp: TAlphaBody;
     FCpiRsp: TAlphaBody;
     FYield10YRsp: TAlphaBody;
@@ -25,8 +25,8 @@ type
     function GetInflation: TAlphaBody;
     function GetCpi: TAlphaBody;
     function GetYield10Y: TAlphaBody;
-    function GetEvent: TAlphaPortInServerEventClass;
-    function GetPortOutEvent: TAlphaPortOutTraderEventClass;
+    function GetEvent: TPortInServerEventClass;
+    function GetPortOutEvent: TPortOutTraderEventClass;
   public
     procedure ReqInflation;
     procedure ReqCpi;
@@ -53,7 +53,7 @@ uses
 
 { TalphaAdapterServerController }
 
-procedure TalphaAdapterServerService.DataModuleCreate(Sender: TObject);
+procedure TadapterServerService.DataModuleCreate(Sender: TObject);
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
@@ -64,11 +64,11 @@ begin
 
   FPortOutEvent.OnSave := TEvent<TProc>.Create;
 
-  FMngTh := TObjMngTh.Create(ClassName + '.MngTh', FactoryDB.CreateSingleMng(ClassName + '.ObjMng'));
+  FMngTh := TObjMngTh.Create(ClassName + '.MngTh', FactoryDB.Conn);
   FMngTh.Start;
 end;
 
-procedure TalphaAdapterServerService.DataModuleDestroy(Sender: TObject);
+procedure TadapterServerService.DataModuleDestroy(Sender: TObject);
 begin
   FMngTh.Terminate;
   FMngTh := nil;
@@ -83,32 +83,32 @@ begin
     FreeAndNil(FYield10YRsp);
 end;
 
-function TalphaAdapterServerService.GetCpi: TAlphaBody;
+function TadapterServerService.GetCpi: TAlphaBody;
 begin
   Result := FCpiRsp;
 end;
 
-function TalphaAdapterServerService.GetEvent: TAlphaPortInServerEventClass;
+function TadapterServerService.GetEvent: TPortInServerEventClass;
 begin
   Result := FPortInEvent;
 end;
 
-function TalphaAdapterServerService.GetInflation: TAlphaBody;
+function TadapterServerService.GetInflation: TAlphaBody;
 begin
   Result := FInflationRsp;
 end;
 
-function TalphaAdapterServerService.GetPortOutEvent: TAlphaPortOutTraderEventClass;
+function TadapterServerService.GetPortOutEvent: TPortOutTraderEventClass;
 begin
   Result := FPortOutEvent;
 end;
 
-function TalphaAdapterServerService.GetYield10Y: TAlphaBody;
+function TadapterServerService.GetYield10Y: TAlphaBody;
 begin
   Result := FYield10YRsp;
 end;
 
-procedure TalphaAdapterServerService.ReqCpi;
+procedure TadapterServerService.ReqCpi;
 begin
   ASync(TAlphaCpiTask.Create(
     procedure(ATask: THttpClientTask)
@@ -127,7 +127,7 @@ begin
     end));
 end;
 
-procedure TalphaAdapterServerService.ReqInflation;
+procedure TadapterServerService.ReqInflation;
 begin
   ASync(TAlphaInflationTask.Create(
     procedure(ATask: THttpClientTask)
@@ -146,7 +146,7 @@ begin
     end));
 end;
 
-procedure TalphaAdapterServerService.ReqYield10Y;
+procedure TadapterServerService.ReqYield10Y;
 begin
   ASync(TAlphaYield10YTask.Create(
     procedure(ATask: THttpClientTask)
@@ -165,16 +165,14 @@ begin
     end));
 end;
 
-procedure TalphaAdapterServerService.Save;
+procedure TadapterServerService.Save;
 begin
   FMngTh.ASync(
-    function(AMng: TObjectManager): TArray<Int64>
+    procedure (AMng: TObjectManager)
     begin
       var LBuf := TArray<TAlphaBody>.Create(FInflationRsp, FCpiRsp, FYield10YRsp);
-      SetLength(Result, Length(LBuf));
       for var LAlphaBody in LBuf do
       begin
-        var i := 0;
         var LTrans := AMng.Connection.BeginTransaction;
         try
           try
@@ -197,14 +195,11 @@ begin
                     LRaw.Free;
                 end;
               end;
-              Result[i] := LIndicator.ID;
-              Inc(i);
             finally
               if not AMng.IsAttached(LIndicator) then
                 LIndicator.Free;
             end;
             AMng.Flush;
-            SetLength(Result, i + 1);
           except on E: Exception do
             LTrans.Rollback;
           end;
@@ -212,12 +207,13 @@ begin
           LTrans.Commit;
         end;
       end;
-    end,
-    procedure(AEntityIDs: TArray<Int64>)
-    begin
-      for var LProc in FPortOutEvent.OnSave.Listeners do
-        if Assigned(LProc) then
-          LProc();
+      TThread.Queue(nil,
+        procedure
+        begin
+          for var LProc in FPortOutEvent.OnSave.Listeners do
+            if Assigned(LProc) then
+              LProc();
+        end);
     end)
 end;
 

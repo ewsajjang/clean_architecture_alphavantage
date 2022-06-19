@@ -1,9 +1,9 @@
-﻿unit alpha.adapter.traderService;
+﻿unit adapter.traderService;
 
 interface
 
 uses
-  alpha.portIn.traderUseCase, alpha.domain.traderEntities,
+  portIn.traderUseCase, domain.traderEntities,
   m.objMngTh,
 
   wp.Log, wp.Event,
@@ -13,11 +13,11 @@ uses
   ;
 
 type
-  TAlphaAdapterTraderService = class(TwpLogObject, IAlphaTraderUseCase)
+  TAdapterTraderService = class(TwpLogObject, ITraderUseCase)
   private
     FMngTh: TObjMngTh;
-    FEvent: TAlphaTraderEventClass;
-    function GetEvent: TAlphaTraderEventClass;
+    FEvent: TTraderEventClass;
+    function GetEvent: TTraderEventClass;
     procedure ASync(AEntity: TEntity; const AThProc: TProc<TObjectManager>; const ADoneProc: TProc<TArray<Int64>> = nil);
   public
     constructor Create;
@@ -37,9 +37,9 @@ uses
   Spring
   ;
 
-{ TAlphaAdapterTraderService }
+{ TAdapterTraderService }
 
-constructor TAlphaAdapterTraderService.Create;
+constructor TAdapterTraderService.Create;
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
@@ -51,7 +51,7 @@ begin
   FMngTh.Start;
 end;
 
-procedure TAlphaAdapterTraderService.ASync(AEntity: TEntity; const AThProc: TProc<TObjectManager>; const ADoneProc: TProc<TArray<Int64>>);
+procedure TAdapterTraderService.ASync(AEntity: TEntity; const AThProc: TProc<TObjectManager>; const ADoneProc: TProc<TArray<Int64>>);
 begin
   FMngTh.ASync(
     function(AMng: TObjectManager): TArray<Int64>
@@ -77,7 +77,7 @@ begin
     end);
 end;
 
-procedure TAlphaAdapterTraderService.ASyncDelete(AEntity: TEntity);
+procedure TAdapterTraderService.ASyncDelete(AEntity: TEntity);
 begin
   ASync(
     AEntity,
@@ -90,7 +90,7 @@ begin
     end);
 end;
 
-procedure TAlphaAdapterTraderService.ASyncSave(AEntity: TEntity);
+procedure TAdapterTraderService.ASyncSave(AEntity: TEntity);
 begin
   ASync(
     AEntity,
@@ -103,7 +103,7 @@ begin
     end);
 end;
 
-destructor TAlphaAdapterTraderService.Destroy;
+destructor TAdapterTraderService.Destroy;
 begin
   FMngTh.Terminate;
   FMngTh := nil;
@@ -111,12 +111,12 @@ begin
   inherited;
 end;
 
-function TAlphaAdapterTraderService.GetEvent: TAlphaTraderEventClass;
+function TAdapterTraderService.GetEvent: TTraderEventClass;
 begin
   Result := FEvent;
 end;
 
-procedure TAlphaAdapterTraderService.ASyncSave(AEntities: TArray<TEntity>);
+procedure TAdapterTraderService.ASyncSave(AEntities: TArray<TEntity>);
 begin
   FMngTh.ASync(
     function(AMng: TObjectManager): TArray<Int64>
@@ -163,7 +163,7 @@ begin
     end);
 end;
 
-procedure TAlphaAdapterTraderService.ASyncUpdate(AEntity: TEntity);
+procedure TAdapterTraderService.ASyncUpdate(AEntity: TEntity);
 begin
   ASync(
     AEntity,

@@ -1,9 +1,9 @@
-﻿unit alpha.portIn.serverUseCase;
+﻿unit portIn.serverUseCase;
 
 interface
 
 uses
-  alpha.domain.serverEntities,
+  domain.serverEntities,
 
   wp.Event,
 
@@ -12,10 +12,10 @@ uses
   ;
 
 type
-  TAlphaPortInServerEvent = class;
-  TAlphaPortInServerEventClass = class of TAlphaPortInServerEvent;
+  TPortInServerEvent = class;
+  TPortInServerEventClass = class of TPortInServerEvent;
 
-  IAlphaPortInServerUseCase = interface
+  IPortInServerUseCase = interface
     ['{17785C85-A114-4CEA-A03D-4D92114E27CB}']
     procedure ReqInflation;
     procedure ReqCpi;
@@ -24,15 +24,15 @@ type
     function GetInflation: TAlphaBody;
     function GetCpi: TAlphaBody;
     function GetYield10Y: TAlphaBody;
-    function GetEvent: TAlphaPortInServerEventClass;
+    function GetEvent: TPortInServerEventClass;
 
-    property Event: TAlphaPortInServerEventClass read GetEvent;
+    property Event: TPortInServerEventClass read GetEvent;
     property Inflation: TAlphaBody read GetInflation;
     property Cpi: TAlphaBody read GetCpi;
     property Yield10Y: TAlphaBody read GetYield10Y;
   end;
 
-  TAlphaPortInServerEvent = class
+  TPortInServerEvent = class
     class var OnSync: IEvent<TProc>;
     class var OnInflation: IEvent<TProc>;
     class var OnCpi: IEvent<TProc>;
