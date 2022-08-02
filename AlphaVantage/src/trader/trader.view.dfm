@@ -1,32 +1,25 @@
-object AdapterIndicatorControl: TAdapterIndicatorControl
+object traderView: TtraderView
   Left = 0
   Top = 0
   BorderStyle = bsNone
-  Caption = 'AdapterIndicatorControl'
-  ClientHeight = 658
-  ClientWidth = 1416
+  Caption = 'traderView'
+  ClientHeight = 329
+  ClientWidth = 708
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -24
+  Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
   OnCreate = FormCreate
-  PixelsPerInch = 192
-  TextHeight = 32
+  TextHeight = 15
   object Grid: TDBAdvGrid
     Left = 0
     Top = 0
-    Width = 1416
-    Height = 658
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Width = 708
+    Height = 329
     Align = alClient
     ColCount = 2
-    DefaultColWidth = 128
-    DefaultRowHeight = 44
     DrawingStyle = gdsClassic
     FixedColor = clWhite
     RowCount = 2
@@ -90,8 +83,8 @@ object AdapterIndicatorControl: TAdapterIndicatorControl
       'Larger than'
       'Smaller than'
       'Clear')
-    FixedColWidth = 40
-    FixedRowHeight = 44
+    FixedColWidth = 20
+    FixedRowHeight = 22
     FixedFont.Charset = DEFAULT_CHARSET
     FixedFont.Color = 3881787
     FixedFont.Height = -11
@@ -145,7 +138,7 @@ object AdapterIndicatorControl: TAdapterIndicatorControl
     SortSettings.HeaderColorTo = clWhite
     SortSettings.HeaderMirrorColor = clWhite
     SortSettings.HeaderMirrorColorTo = clWhite
-    Version = '2.5.1.11'
+    Version = '2.5.1.13'
     AutoCreateColumns = True
     AutoRemoveColumns = True
     Columns = <
@@ -172,7 +165,7 @@ object AdapterIndicatorControl: TAdapterIndicatorControl
         PrintFont.Height = -24
         PrintFont.Name = 'Segoe UI'
         PrintFont.Style = []
-        Width = 40
+        Width = 20
       end
       item
         Borders = []
@@ -197,7 +190,7 @@ object AdapterIndicatorControl: TAdapterIndicatorControl
         PrintFont.Height = -24
         PrintFont.Name = 'Segoe UI'
         PrintFont.Style = []
-        Width = 1372
+        Width = 684
       end>
     DataSource = DataSource
     InvalidPicture.Data = {
@@ -733,16 +726,12 @@ object AdapterIndicatorControl: TAdapterIndicatorControl
       0000FFFFFFFE00000001FFFFFFFF80000007FFFFFFFFF000003FFFFFFFFFFE00
       01FFFFFF}
     ShowUnicode = False
-    ExplicitLeft = 464
-    ExplicitTop = 64
-    ExplicitWidth = 800
-    ExplicitHeight = 500
     ColWidths = (
-      40
-      1372)
+      20
+      684)
     RowHeights = (
-      44
-      44)
+      22
+      22)
   end
   object Dataset: TAureliusDataset
     FieldDefs = <

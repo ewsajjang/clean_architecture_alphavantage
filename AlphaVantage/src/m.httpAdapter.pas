@@ -18,7 +18,7 @@ type
     procedure ASync(ATask: THttpClientTask);
     function Sync(ATask: THttpClientTask; out AErMsg: string): Boolean;
   public
-    constructor Create; virtual;
+    constructor Create;
     destructor Destroy; override;
   end;
 
@@ -37,7 +37,7 @@ constructor TCustomHttpAdapter.Create;
 begin
   inherited;
 
-  FTaskMng := THttpClientTaskMng<THttpBody, THttpBody>.Create(TwpLoggerFactory.CreateSingle('TalphaAdapterServerController.TaskMng'));
+  FTaskMng := THttpClientTaskMng<THttpBody, THttpBody>.Create(TwpLoggerFactory.CreateSingle('THttpClientTaskMng'));
   FTaskMng.OnSessionHeader := procedure(ATask: THttpClientTask; AHeader: TStringList)
     begin
       Assert(Assigned(FHttpTh));

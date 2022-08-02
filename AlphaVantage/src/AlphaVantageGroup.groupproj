@@ -1,12 +1,12 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{73D68235-D7C9-4086-A20E-0E4486AEBDC1}</ProjectGuid>
+        <ProjectGuid>{1C6F7CEF-F0B0-4332-98DC-851ED1017ED9}</ProjectGuid>
     </PropertyGroup>
     <ItemGroup>
-        <Projects Include="alphaVentigeDB.dproj">
+        <Projects Include="alphaVentage.dproj">
             <Dependencies/>
         </Projects>
-        <Projects Include="alphaVentage.dproj">
+        <Projects Include="TestAlphaVantage.dproj">
             <Dependencies/>
         </Projects>
     </ItemGroup>
@@ -17,15 +17,6 @@
             <Default.Personality/>
         </BorlandProject>
     </ProjectExtensions>
-    <Target Name="alphaVentigeDB">
-        <MSBuild Projects="alphaVentigeDB.dproj"/>
-    </Target>
-    <Target Name="alphaVentigeDB:Clean">
-        <MSBuild Projects="alphaVentigeDB.dproj" Targets="Clean"/>
-    </Target>
-    <Target Name="alphaVentigeDB:Make">
-        <MSBuild Projects="alphaVentigeDB.dproj" Targets="Make"/>
-    </Target>
     <Target Name="alphaVentage">
         <MSBuild Projects="alphaVentage.dproj"/>
     </Target>
@@ -35,14 +26,23 @@
     <Target Name="alphaVentage:Make">
         <MSBuild Projects="alphaVentage.dproj" Targets="Make"/>
     </Target>
+    <Target Name="TestAlphaVantage">
+        <MSBuild Projects="TestAlphaVantage.dproj"/>
+    </Target>
+    <Target Name="TestAlphaVantage:Clean">
+        <MSBuild Projects="TestAlphaVantage.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="TestAlphaVantage:Make">
+        <MSBuild Projects="TestAlphaVantage.dproj" Targets="Make"/>
+    </Target>
     <Target Name="Build">
-        <CallTarget Targets="alphaVentigeDB;alphaVentage"/>
+        <CallTarget Targets="alphaVentage;TestAlphaVantage"/>
     </Target>
     <Target Name="Clean">
-        <CallTarget Targets="alphaVentigeDB:Clean;alphaVentage:Clean"/>
+        <CallTarget Targets="alphaVentage:Clean;TestAlphaVantage:Clean"/>
     </Target>
     <Target Name="Make">
-        <CallTarget Targets="alphaVentigeDB:Make;alphaVentage:Make"/>
+        <CallTarget Targets="alphaVentage:Make;TestAlphaVantage:Make"/>
     </Target>
     <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
 </Project>

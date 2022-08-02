@@ -1,11 +1,11 @@
-﻿unit adapter.trader.indicatorController;
+﻿unit trader.view;
 
 interface
 
 uses
-  domain.traderEntities, portOut.qry.traderUseCase, portOut.cmd.traderUseCase,
+  trader.entities, trader.input, trader.output,
 
-  wp.log,
+  wp.log, Spring.Container.Common,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, AdvUtil, Data.DB, Aurelius.Bind.BaseDataset, Aurelius.Bind.Dataset, Vcl.Grids, AdvObj,
@@ -14,7 +14,7 @@ uses
   ;
 
 type
-  TAdapterIndicatorControl = class(TwpLogForm)
+  TtraderView = class(TwpLogForm)
     Grid: TDBAdvGrid;
     Dataset: TAureliusDataset;
     DataSource: TDataSource;
@@ -26,14 +26,14 @@ type
     procedure FormCreate(Sender: TObject);
   private
     FIndicators: TList<TIndicator>;
-    FCmdTraderUseCase: ICmdTraderUseCase;
-    FQryTraderUseCase: IQryTraderUseCase;
+    [Inject] FTraderInput: ITraderInput;
+    [Inject] FTraderOutputQry: ITraderOutputQry;
     procedure LoadIndicators(AList: TIndicatorList);
   public
   end;
 
 var
-  AdapterIndicatorControl: TAdapterIndicatorControl;
+  traderView: TtraderView;
 
 implementation
 
@@ -43,12 +43,11 @@ uses
   Spring.Container
   ;
 
-procedure TAdapterIndicatorControl.FormCreate(Sender: TObject);
+procedure TtraderView.FormCreate(Sender: TObject);
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
-  FQryTraderUseCase := GlobalContainer.Resolve<IQryTraderUseCase>;
-  FQryTraderUseCase.Event.OnLoadIndicators.Subscribe(
+  FTraderOutputQry.Event.OnLoadIndicators.Subscribe(
     Self,
     procedure(AList: TIndicatorList)
     begin
@@ -56,16 +55,15 @@ begin
       LoadIndicators(FIndicators);
     end);
 
-  FCmdTraderUseCase := GlobalContainer.Resolve<ICmdTraderUseCase>;
-  FCmdTraderUseCase.Event.OnSave.Subscribe(
+  FTraderInput.Event.OnSave.Subscribe(
     Self,
     procedure
     begin
-      FQryTraderUseCase.LoadIndicator;
+      FTraderOutputQry.LoadIndicator;
     end);
 end;
 
-procedure TAdapterIndicatorControl.LoadIndicators(AList: TIndicatorList);
+procedure TtraderView.LoadIndicators(AList: TIndicatorList);
 begin
   DataSet.DisableControls;
   try

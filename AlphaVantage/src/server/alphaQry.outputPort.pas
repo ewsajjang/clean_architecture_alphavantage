@@ -1,9 +1,9 @@
-﻿unit portOut.qry.serverUseCase;
+﻿unit alphaQry.outputPort;
 
 interface
 
 uses
-  domain.serverEntities,
+  alphaQry.entities,
 
   wp.Event,
 
@@ -12,29 +12,29 @@ uses
   ;
 
 type
-  TQryServerEvent = class;
-  TQryServerEventClass = class of TQryServerEvent;
+  TAlphaQryOutputPortEvent = class;
+  TAlphaQryOutputPortEventClass = class of TAlphaQryOutputPortEvent;
 
-  IQryServerUseCase = interface
+  IAlphaQryOutputPort = interface
     ['{17785C85-A114-4CEA-A03D-4D92114E27CB}']
-    procedure ReqInflation;
-    procedure ReqCpi;
-    procedure ReqYield10Y;
-
-    function GetEvent: TQryServerEventClass;
+    function GetEvent: TAlphaQryOutputPortEventClass;
     function GetBodyEntities: TArray<TAlphaBody>;
     function GetInflation: TAlphaBody;
     function GetCpi: TAlphaBody;
     function GetYield10Y: TAlphaBody;
 
-    property Event: TQryServerEventClass read GetEvent;
+    procedure ReqInflation;
+    procedure ReqCpi;
+    procedure ReqYield10Y;
+
+    property Event: TAlphaQryOutputPortEventClass read GetEvent;
     property BodyEntities: TArray<TAlphaBody> read GetBodyEntities;
     property Inflation: TAlphaBody read GetInflation;
     property Cpi: TAlphaBody read GetCpi;
     property Yield10Y: TAlphaBody read GetYield10Y;
   end;
 
-  TQryServerEvent = class
+  TAlphaQryOutputPortEvent = class
     class var OnSync: IEvent<TProc>;
     class var OnInflation: IEvent<TProc>;
     class var OnCpi: IEvent<TProc>;

@@ -1,14 +1,14 @@
 ﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <PropertyGroup>
-        <ProjectGuid>{3FD0698A-0AB2-486D-AC3D-B9D5B64F958E}</ProjectGuid>
+        <ProjectGuid>{09EA9B11-C9A4-420A-B9FF-42326E8B4219}</ProjectGuid>
         <ProjectVersion>19.4</ProjectVersion>
         <FrameworkType>VCL</FrameworkType>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
         <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>1</TargetedPlatforms>
-        <AppType>Application</AppType>
-        <MainSource>alphaVentage.dpr</MainSource>
+        <AppType>Console</AppType>
+        <MainSource>TestAlphaVantage.dpr</MainSource>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -39,40 +39,27 @@
         <CfgParent>Base</CfgParent>
         <Base>true</Base>
     </PropertyGroup>
-    <PropertyGroup Condition="('$(Platform)'=='Win32' and '$(Cfg_2)'=='true') or '$(Cfg_2_Win32)'!=''">
-        <Cfg_2_Win32>true</Cfg_2_Win32>
-        <CfgParent>Cfg_2</CfgParent>
-        <Cfg_2>true</Cfg_2>
-        <Base>true</Base>
-    </PropertyGroup>
     <PropertyGroup Condition="'$(Base)'!=''">
-        <DCC_DcuOutput>..\_dcu\$(Platform).$(Config)</DCC_DcuOutput>
-        <DCC_ExeOutput>..\bin\$(Platform).$(Config)</DCC_ExeOutput>
+        <DCC_DcuOutput>.\$(Platform)\$(Config)</DCC_DcuOutput>
+        <DCC_ExeOutput>.\$(Platform)\$(Config)</DCC_ExeOutput>
         <DCC_E>false</DCC_E>
         <DCC_N>false</DCC_N>
         <DCC_S>false</DCC_S>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
         <DCC_Namespace>System;Xml;Data;Datasnap;Web;Soap;Vcl;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
+        <UsingDelphiRTL>true</UsingDelphiRTL>
         <Icon_MainIcon>$(BDS)\bin\delphi_PROJECTICON.ico</Icon_MainIcon>
-        <UWP_DelphiLogo44>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_44.png</UWP_DelphiLogo44>
-        <UWP_DelphiLogo150>$(BDS)\bin\Artwork\Windows\UWP\delphi_UwpDefault_150.png</UWP_DelphiLogo150>
-        <SanitizedProjectName>alphaVentage</SanitizedProjectName>
-        <DCC_UnitSearchPath>..\__lib;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-        <VerInfo_Locale>1042</VerInfo_Locale>
-        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <Icns_MainIcns>$(BDS)\bin\delphi_PROJECTICNS.icns</Icns_MainIcns>
+        <DCC_UnitSearchPath>$(DUnitX);$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+        <SanitizedProjectName>TestAlphaVantage</SanitizedProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_UsePackage>RaizeComponentsVcl;vclwinx;DataSnapServer;FixInsight_11;fmx;emshosting;vclie;DbxCommonDriver;bindengine;IndyIPCommon;VCLRESTComponents;DBXMSSQLDriver;FireDACCommonODBC;emsclient;FireDACCommonDriver;aurelius;appanalytics;IndyProtocols;vclx;TMSMQTTPkgDXE14;IndyIPClient;dbxcds;vcledge;TMSVCLPluginFrameworkPkgMgrDXE14;bindcompvclwinx;emsedge;bindcompfmx;DBXFirebirdDriver;TMSVCLUIPackPkgDXE14;inetdb;FireDACSqliteDriver;DbxClientDriver;FireDACASADriver;JclVcl;soapmidas;vclactnband;fmxFireDAC;dbexpress;Jcl;orchPkgD110Alexandria;FireDACInfxDriver;DBXMySQLDriver;VclSmp;inet;DataSnapCommon;acntDX11Alexandria_R;vcltouch;fmxase;DBXOdbcDriver;dbrtl;FireDACDBXDriver;FireDACOracleDriver;CodeSiteExpressPkg;fmxdae;FireDACMSAccDriver;tmsbcl;CustomIPTransport;FireDACMSSQLDriver;TMSMQTTPkgDEDXE14;DataSnapIndy10ServerTransport;JclDeveloperTools;DataSnapConnectors;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;IndySystem;PngComponentsD;FireDACTDataDriver;vcldb;TMSVCLPluginFrameworkPkgCoreDXE14;JclContainers;vclFireDAC;bindcomp;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;IndyCore;RESTBackendComponents;bindcompdbx;rtl;FireDACMySQLDriver;FireDACADSDriver;RaizeComponentsVclDb;TMSMemInsightPkgDXE14;RESTComponents;DBXSqliteDriver;vcl;IndyIPServer;dsnapxml;dsnapcon;DataSnapClient;DataSnapProviderClient;adortl;VirtualTreesDR;TMSVCLUIPackPkgExDXE14;DBXSybaseASEDriver;TMSVCLUIPackPkgWizDXE14;DBXDb2Driver;vclimg;DataSnapFireDAC;emsclientfiredac;FireDACPgDriver;FireDAC;FireDACDSDriver;inetdbxpress;xmlrtl;tethering;TMSVCLUIPackPkgXlsDXE14;bindcompvcl;dsnap;CloudService;DBXSybaseASADriver;DBXOracleDriver;FireDACDb2Driver;DBXInformixDriver;fmxobj;bindcompvclsmp;DataSnapNativeClient;DatasnapConnectorsFreePascal;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
+        <DCC_UsePackage>RaizeComponentsVcl;vclwinx;DataSnapServer;FixInsight_11;fmx;emshosting;vclie;DbxCommonDriver;bindengine;IndyIPCommon;VCLRESTComponents;DBXMSSQLDriver;FireDACCommonODBC;emsclient;FireDACCommonDriver;aurelius;appanalytics;IndyProtocols;vclx;TMSMQTTPkgDXE14;IndyIPClient;dbxcds;vcledge;TMSVCLPluginFrameworkPkgMgrDXE14;bindcompvclwinx;emsedge;bindcompfmx;DBXFirebirdDriver;TMSVCLUIPackPkgDXE14;inetdb;FireDACSqliteDriver;DbxClientDriver;FireDACASADriver;JclVcl;soapmidas;vclactnband;fmxFireDAC;dbexpress;Jcl;orchPkgD110Alexandria;FireDACInfxDriver;DBXMySQLDriver;VclSmp;inet;DataSnapCommon;vcltouch;fmxase;DBXOdbcDriver;dbrtl;FireDACDBXDriver;FireDACOracleDriver;CodeSiteExpressPkg;fmxdae;FireDACMSAccDriver;tmsbcl;CustomIPTransport;FireDACMSSQLDriver;TMSMQTTPkgDEDXE14;DataSnapIndy10ServerTransport;JclDeveloperTools;DataSnapConnectors;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;IndySystem;PngComponentsD;FireDACTDataDriver;vcldb;TMSVCLPluginFrameworkPkgCoreDXE14;JclContainers;vclFireDAC;bindcomp;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;IndyCore;RESTBackendComponents;bindcompdbx;rtl;FireDACMySQLDriver;FireDACADSDriver;RaizeComponentsVclDb;TMSMemInsightPkgDXE14;RESTComponents;DBXSqliteDriver;vcl;IndyIPServer;dsnapxml;dsnapcon;DataSnapClient;DataSnapProviderClient;adortl;VirtualTreesDR;TMSVCLUIPackPkgExDXE14;DBXSybaseASEDriver;TMSVCLUIPackPkgWizDXE14;DBXDb2Driver;vclimg;DataSnapFireDAC;emsclientfiredac;FireDACPgDriver;FireDAC;FireDACDSDriver;inetdbxpress;xmlrtl;tethering;TMSVCLUIPackPkgXlsDXE14;bindcompvcl;dsnap;CloudService;DBXSybaseASADriver;DBXOracleDriver;FireDACDb2Driver;DBXInformixDriver;fmxobj;bindcompvclsmp;DataSnapNativeClient;DatasnapConnectorsFreePascal;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
         <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
+        <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
         <VerInfo_Locale>1033</VerInfo_Locale>
-        <Manifest_File>$(BDS)\bin\default_app.manifest</Manifest_File>
-        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
-        <DCC_DcuOutput>..\__dcu\$(Platform).$(Config)</DCC_DcuOutput>
-        <AppDPIAwarenessMode>none</AppDPIAwarenessMode>
-        <DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win64)'!=''">
         <DCC_UsePackage>RaizeComponentsVcl;vclwinx;DataSnapServer;fmx;emshosting;vclie;DbxCommonDriver;bindengine;IndyIPCommon;VCLRESTComponents;DBXMSSQLDriver;FireDACCommonODBC;emsclient;FireDACCommonDriver;aurelius;appanalytics;IndyProtocols;vclx;IndyIPClient;dbxcds;vcledge;bindcompvclwinx;emsedge;bindcompfmx;DBXFirebirdDriver;TMSVCLUIPackPkgDXE14;inetdb;FireDACSqliteDriver;DbxClientDriver;FireDACASADriver;soapmidas;vclactnband;fmxFireDAC;dbexpress;FireDACInfxDriver;DBXMySQLDriver;VclSmp;inet;DataSnapCommon;vcltouch;fmxase;DBXOdbcDriver;dbrtl;FireDACDBXDriver;FireDACOracleDriver;fmxdae;FireDACMSAccDriver;tmsbcl;CustomIPTransport;FireDACMSSQLDriver;DataSnapIndy10ServerTransport;DataSnapConnectors;vcldsnap;DBXInterBaseDriver;FireDACMongoDBDriver;IndySystem;PngComponentsD;FireDACTDataDriver;vcldb;vclFireDAC;bindcomp;FireDACCommon;DataSnapServerMidas;FireDACODBCDriver;emsserverresource;IndyCore;RESTBackendComponents;bindcompdbx;rtl;FireDACMySQLDriver;FireDACADSDriver;RaizeComponentsVclDb;TMSMemInsightPkgDXE14;RESTComponents;DBXSqliteDriver;vcl;IndyIPServer;dsnapxml;dsnapcon;DataSnapClient;DataSnapProviderClient;adortl;VirtualTreesDR;TMSVCLUIPackPkgExDXE14;DBXSybaseASEDriver;DBXDb2Driver;vclimg;DataSnapFireDAC;emsclientfiredac;FireDACPgDriver;FireDAC;FireDACDSDriver;inetdbxpress;xmlrtl;tethering;TMSVCLUIPackPkgXlsDXE14;bindcompvcl;dsnap;CloudService;DBXSybaseASADriver;DBXOracleDriver;FireDACDb2Driver;DBXInformixDriver;fmxobj;bindcompvclsmp;DataSnapNativeClient;DatasnapConnectorsFreePascal;soaprtl;soapserver;FireDACIBDriver;$(DCC_UsePackage)</DCC_UsePackage>
@@ -89,10 +76,6 @@
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_1_Win32)'!=''">
         <DCC_RemoteDebug>false</DCC_RemoteDebug>
-        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
-        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Locale>1033</VerInfo_Locale>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2)'!=''">
         <DCC_LocalDebugSymbols>false</DCC_LocalDebugSymbols>
@@ -100,48 +83,35 @@
         <DCC_SymbolReferenceInfo>0</DCC_SymbolReferenceInfo>
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
-    <PropertyGroup Condition="'$(Cfg_2_Win32)'!=''">
-        <AppEnableRuntimeThemes>true</AppEnableRuntimeThemes>
-        <AppDPIAwarenessMode>PerMonitorV2</AppDPIAwarenessMode>
-        <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_AutoGenVersion>true</VerInfo_AutoGenVersion>
-    </PropertyGroup>
     <ItemGroup>
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="v.main.pas">
-            <Form>vMain</Form>
-        </DCCReference>
-        <DCCReference Include="alphaSvr\alphaSvr.view.pas">
-            <Form>alphaSvrView</Form>
-        </DCCReference>
-        <DCCReference Include="trader\trader.entities.pas"/>
-        <DCCReference Include="alphaSvr\alphaSvr.output.pas"/>
-        <DCCReference Include="alphaSvr\alphaSvr.service.pas">
-            <Form>alphaSvrService</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
+        <DCCReference Include="..\trader\test.trader.service.pas"/>
         <DCCReference Include="..\__lib\m.httpClient.pas"/>
-        <DCCReference Include="alphaSvr\alphaSvr.entities.pas"/>
-        <DCCReference Include="factory.db.pas">
-            <Form>factoryDB</Form>
+        <DCCReference Include="..\__lib\wp.Aurelius.Engine.ObjectManager.pas"/>
+        <DCCReference Include="..\trader\trader.service.pas"/>
+        <DCCReference Include="..\trader\trader.entities.pas"/>
+        <DCCReference Include="..\trader\trader.input.pas"/>
+        <DCCReference Include="..\trader\trader.output.dbCmd.pas"/>
+        <DCCReference Include="..\trader\trader.output.dbQry.pas"/>
+        <DCCReference Include="..\trader\trader.output.intf.qry.pas"/>
+        <DCCReference Include="..\trader\trader.output.pas"/>
+        <DCCReference Include="..\alphaSvr\alphaSvr.entities.pas"/>
+        <DCCReference Include="..\alphaSvr\alphaSvr.input.pas"/>
+        <DCCReference Include="..\alphaSvr\alphaSvr.ouput.restQry.pas"/>
+        <DCCReference Include="..\alphaSvr\alphaSvr.output.pas"/>
+        <DCCReference Include="..\alphaSvr\alphaSvr.service.pas">
+            <Form>alphaSvrService</Form>
+            <FormType>dfm</FormType>
             <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="..\__lib\wp.Aurelius.Engine.ObjectManager.pas"/>
-        <DCCReference Include="m.httpAdapter.pas"/>
-        <DCCReference Include="trader\trader.service.pas"/>
-        <DCCReference Include="trader\trader.view.pas">
-            <Form>traderView</Form>
+        <DCCReference Include="..\factory.db.pas">
+            <Form>factoryDB</Form>
             <FormType>dfm</FormType>
+            <DesignClass>TDataModule</DesignClass>
         </DCCReference>
-        <DCCReference Include="trader\trader.output.dbQry.pas"/>
-        <DCCReference Include="trader\trader.output.pas"/>
-        <DCCReference Include="alphaSvr\alphaSvr.ouput.restQry.pas"/>
-        <DCCReference Include="alphaSvr\alphaSvr.input.pas"/>
-        <DCCReference Include="trader\trader.input.pas"/>
-        <None Include="logger.inc"/>
-        <None Include="db.inc"/>
+        <DCCReference Include="..\m.httpAdapter.pas"/>
         <BuildConfiguration Include="Base">
             <Key>Base</Key>
         </BuildConfiguration>
@@ -160,29 +130,28 @@
         <BorlandProject>
             <Delphi.Personality>
                 <Source>
-                    <Source Name="MainSource">alphaVentage.dpr</Source>
+                    <Source Name="MainSource">TestAlphaVantage.dpr</Source>
                 </Source>
-                <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dcloffice2k280.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSBIN)\dclofficexp280.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
-                </Excluded_Packages>
             </Delphi.Personality>
             <Deployment Version="3">
-                <DeployFile LocalName="..\bin\Win32.Debug\alphaVentage.exe" Configuration="Debug" Class="ProjectOutput">
-                    <Platform Name="Win32">
-                        <RemoteName>alphaVentage.exe</RemoteName>
+                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="iOSSimulator">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="db.inc" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                <DeployFile LocalName="$(BDS)\Redist\iossimulator\libpcre.dylib" Class="DependencyModule">
+                    <Platform Name="iOSSimulator">
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="logger.inc" Configuration="Debug" Class="ProjectFile">
+                <DeployFile LocalName="$(BDS)\Redist\osx32\libcgunwind.1.0.dylib" Class="DependencyModule">
+                    <Platform Name="OSX32">
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="Win32\Debug\TestAlphaVantage.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
+                        <RemoteName>TestAlphaVantage.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>

@@ -1,34 +1,33 @@
-﻿unit adapterOut.cmd.traderPersistence;
+﻿unit trader.service;
 
 interface
 
 uses
-  domain.traderEntities, portOut.cmd.traderUseCase,
-  domain.serverEntities,
+  alphaSvr.entities, trader.entities, trader.output, trader.input,
 
-  wp.Aurelius.Engine.ObjectManager,
-
-  wp.log, wp.Event,
+  wp.Log, wp.Aurelius.Engine.ObjectManager, wp.Event,
 
   System.Classes, System.SysUtils,
-  System.Generics.Collections
+  System.Generics.Collections, Spring.Collections, Spring.Container.Common
   ;
 
 type
-  TCmdTraderAdapter = class(TwpLogObject, ICmdTraderUseCase)
+  TTraderService = class(TwpLogObject, ITraderInput)
   private
+    FEvent: TTraderInputEventClass;
+    function GetEvent: TTraderInputEventClass;
+  private
+    [Inject] FTraderOutputQry: ITraderOutputQry;
     FObjMng: TAureliusObjMngThread;
-    FEvent: TCmdTraderUseCaseEventClass;
-    function GetEvent: TCmdTraderUseCaseEventClass;
+    class constructor Create;
   public
+
     constructor Create;
     destructor Destroy; override;
 
     procedure Save(ABodyEntities: TArray<TAlphaBody>);
-    procedure Delete(AEntity: TEntity);
-    procedure Update(AEntity: TEntity);
 
-    property Event: TCmdTraderUseCaseEventClass read GetEvent;
+    property Event: TTraderInputEventClass read GetEvent;
   end;
 
 implementation
@@ -36,41 +35,42 @@ implementation
 uses
   factory.db,
 
+  Spring.Container,
   Aurelius.Engine.ObjectManager, Aurelius.Criteria.Base, Aurelius.Criteria.Linq
   ;
 
-{ TCmdTraderAdapter }
+{ TTraderService }
 
-constructor TCmdTraderAdapter.Create;
+constructor TTraderService.Create;
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
+  FEvent.OnSave := TEvent<TProc>.Create;
+
   FObjMng := TAureliusObjMngThread.Create(ClassName + '.MngTh', FactoryDB.Conn);
   FObjMng.Start;
-
-  FEvent.OnSave := TEvent<TProc>.Create;
-  FEvent.OnUpdate := TEvent<TProc<Int64>>.Create;
-  FEvent.OnDelete := TEvent<TProc<Int64>>.Create;
 end;
 
-procedure TCmdTraderAdapter.Delete(AEntity: TEntity);
+class constructor TTraderService.Create;
 begin
-
+  //GlobalContainer.Resolve<ITraderInput>;
 end;
 
-destructor TCmdTraderAdapter.Destroy;
+destructor TTraderService.Destroy;
 begin
+  GlobalContainer.Release(FTraderOutputQry);
+
   FObjMng.Terminate;
 
   inherited;
 end;
 
-function TCmdTraderAdapter.GetEvent: TCmdTraderUseCaseEventClass;
+function TTraderService.GetEvent: TTraderInputEventClass;
 begin
   Result := FEvent;
 end;
 
-procedure TCmdTraderAdapter.Save(ABodyEntities: TArray<TAlphaBody>);
+procedure TTraderService.Save(ABodyEntities: TArray<TAlphaBody>);
 begin
   FObjMng.ASync(
     procedure(AMng: TObjectManager)
@@ -119,11 +119,6 @@ begin
               LProc();
         end);
     end);
-end;
-
-procedure TCmdTraderAdapter.Update(AEntity: TEntity);
-begin
-
 end;
 
 end.

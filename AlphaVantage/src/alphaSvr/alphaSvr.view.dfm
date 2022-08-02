@@ -1,29 +1,24 @@
-object AdapterOutServerController: TAdapterOutServerController
+object alphaSvrView: TalphaSvrView
   Left = 0
   Top = 0
   BorderStyle = bsNone
   Caption = 'AdapterOutQryServerController'
-  ClientHeight = 942
-  ClientWidth = 1626
+  ClientHeight = 471
+  ClientWidth = 813
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -24
+  Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
   Visible = True
   OnCreate = FormCreate
-  PixelsPerInch = 192
-  TextHeight = 32
+  TextHeight = 15
   object GridPanel1: TGridPanel
     Left = 0
-    Top = 162
-    Width = 1626
-    Height = 780
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Top = 81
+    Width = 813
+    Height = 390
     Align = alClient
     ColumnCollection = <
       item
@@ -60,14 +55,10 @@ object AdapterOutServerController: TAdapterOutServerController
     object ListInflation: TControlList
       Left = 1
       Top = 1
-      Width = 541
-      Height = 778
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Width = 270
+      Height = 388
       Align = alClient
-      ItemHeight = 34
+      ItemHeight = 17
       ItemMargins.Left = 0
       ItemMargins.Top = 0
       ItemMargins.Right = 0
@@ -78,28 +69,23 @@ object AdapterOutServerController: TAdapterOutServerController
       object LabelInflationData: TLabel
         Left = 0
         Top = 0
-        Width = 537
-        Height = 32
+        Width = 52
+        Height = 15
         Margins.Left = 6
         Margins.Top = 6
         Margins.Right = 6
         Margins.Bottom = 6
         Align = alTop
         Caption = 'LabelData'
-        ExplicitWidth = 105
       end
     end
     object ListCpi: TControlList
-      Left = 542
+      Left = 271
       Top = 1
-      Width = 542
-      Height = 778
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Width = 271
+      Height = 388
       Align = alClient
-      ItemHeight = 34
+      ItemHeight = 17
       ItemMargins.Left = 0
       ItemMargins.Top = 0
       ItemMargins.Right = 0
@@ -110,28 +96,23 @@ object AdapterOutServerController: TAdapterOutServerController
       object LabelCpiData: TLabel
         Left = 0
         Top = 0
-        Width = 538
-        Height = 32
+        Width = 52
+        Height = 15
         Margins.Left = 6
         Margins.Top = 6
         Margins.Right = 6
         Margins.Bottom = 6
         Align = alTop
         Caption = 'LabelData'
-        ExplicitWidth = 105
       end
     end
     object ListYield10Y: TControlList
-      Left = 1084
+      Left = 542
       Top = 1
-      Width = 541
-      Height = 778
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Width = 270
+      Height = 388
       Align = alClient
-      ItemHeight = 34
+      ItemHeight = 17
       ItemMargins.Left = 0
       ItemMargins.Top = 0
       ItemMargins.Right = 0
@@ -142,52 +123,39 @@ object AdapterOutServerController: TAdapterOutServerController
       object LabelYield10YData: TLabel
         Left = 0
         Top = 0
-        Width = 537
-        Height = 32
+        Width = 52
+        Height = 15
         Margins.Left = 6
         Margins.Top = 6
         Margins.Right = 6
         Margins.Bottom = 6
         Align = alTop
         Caption = 'LabelData'
-        ExplicitWidth = 105
       end
     end
   end
   object Panel1: TPanel
     Left = 0
     Top = 0
-    Width = 1626
-    Height = 82
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Width = 813
+    Height = 41
     Align = alTop
     BevelOuter = bvLowered
     TabOrder = 1
     object ButtonSync: TButton
-      Left = 27
-      Top = 17
-      Width = 150
-      Height = 50
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 14
+      Top = 9
+      Width = 75
+      Height = 25
       Caption = 'Syncronize'
       TabOrder = 0
       OnClick = ButtonSyncClick
     end
     object ButtonSave: TButton
-      Left = 189
-      Top = 17
-      Width = 150
-      Height = 50
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 95
+      Top = 9
+      Width = 75
+      Height = 25
       Caption = 'Save'
       TabOrder = 1
       OnClick = ButtonSaveClick
@@ -195,13 +163,9 @@ object AdapterOutServerController: TAdapterOutServerController
   end
   object GridPanel2: TGridPanel
     Left = 0
-    Top = 82
-    Width = 1626
-    Height = 80
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
+    Top = 41
+    Width = 813
+    Height = 40
     Align = alTop
     BevelOuter = bvNone
     ColumnCollection = <
@@ -238,66 +202,48 @@ object AdapterOutServerController: TAdapterOutServerController
     TabOrder = 2
     object LabelInflation: TLabel
       AlignWithMargins = True
-      Left = 6
-      Top = 6
-      Width = 530
-      Height = 68
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 3
+      Top = 3
+      Width = 76
+      Height = 15
       Align = alClient
       Caption = 'LabelInflation'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -24
+      Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 158
-      ExplicitHeight = 32
     end
     object LabelCpi: TLabel
       AlignWithMargins = True
-      Left = 548
-      Top = 6
-      Width = 530
-      Height = 68
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 274
+      Top = 3
+      Width = 46
+      Height = 15
       Align = alClient
       Caption = 'LabelCpi'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -24
+      Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 97
-      ExplicitHeight = 32
     end
     object LabelYield10Y: TLabel
       AlignWithMargins = True
-      Left = 1090
-      Top = 6
-      Width = 530
-      Height = 68
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+      Left = 545
+      Top = 3
+      Width = 77
+      Height = 15
       Align = alClient
       Caption = 'LabelYield10Y'
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -24
+      Font.Height = -12
       Font.Name = 'Segoe UI'
       Font.Style = [fsBold]
       ParentFont = False
-      ExplicitWidth = 160
-      ExplicitHeight = 32
     end
   end
 end

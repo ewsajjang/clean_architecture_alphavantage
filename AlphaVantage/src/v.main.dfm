@@ -2,42 +2,29 @@ object vMain: TvMain
   Left = 0
   Top = 0
   Caption = 'Hexagonal Clean Architecture - Demo project: AlphaVantage'
-  ClientHeight = 818
-  ClientWidth = 1894
+  ClientHeight = 409
+  ClientWidth = 947
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
-  Font.Height = -24
+  Font.Height = -12
   Font.Name = 'Segoe UI'
   Font.Style = []
   Position = poScreenCenter
   OnCreate = FormCreate
-  PixelsPerInch = 192
-  TextHeight = 32
+  TextHeight = 15
   object PageControl: TPageControl
     Left = 0
     Top = 0
-    Width = 1894
-    Height = 818
-    Margins.Left = 6
-    Margins.Top = 6
-    Margins.Right = 6
-    Margins.Bottom = 6
-    ActivePage = TabServerUseCase
+    Width = 947
+    Height = 409
+    ActivePage = TabAlphaSvrView
     Align = alClient
     TabOrder = 0
-    object TabServerUseCase: TTabSheet
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+    object TabAlphaSvrView: TTabSheet
       Caption = 'Server UseCase'
     end
-    object TabTraderUseCase: TTabSheet
-      Margins.Left = 6
-      Margins.Top = 6
-      Margins.Right = 6
-      Margins.Bottom = 6
+    object TabTraderView: TTabSheet
       Caption = 'Trader UseCase'
       ImageIndex = 1
     end

@@ -1,4 +1,4 @@
-﻿unit domain.serverEntities;
+﻿unit alphaqry.entities;
 
 interface
 

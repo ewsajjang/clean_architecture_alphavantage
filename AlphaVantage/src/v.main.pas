@@ -3,9 +3,9 @@
 interface
 
 uses
-  portOut.cmd.traderUseCase,
+  trader.input,
 
-  wp.Forms,
+  wp.Forms, Spring.Container.Common,
 
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.ComCtrls;
@@ -13,11 +13,11 @@ uses
 type
   TvMain = class(TwpForm)
     PageControl: TPageControl;
-    TabServerUseCase: TTabSheet;
-    TabTraderUseCase: TTabSheet;
+    TabAlphaSvrView: TTabSheet;
+    TabTraderView: TTabSheet;
     procedure FormCreate(Sender: TObject);
   private
-    FCmdTraderUseCase: ICmdTraderUseCase;
+    [Inject] FTraderInput: ITraderInput;
   public
   end;
 
@@ -29,20 +29,19 @@ implementation
 {$R *.dfm}
 
 uses
-  adapterOut.qry.serverController, adapter.trader.indicatorController,
+  alphaSvr.input, alphaSvr.view, trader.view,
 
   Spring.Container
   ;
 
 procedure TvMain.FormCreate(Sender: TObject);
 begin
-  FCmdTraderUseCase := GlobalContainer.Resolve<ICmdTraderUseCase>;
-  FCmdTraderUseCase.Event.OnSave.Subscribe(Self, procedure begin
-    PageControl.ActivePage := TabTraderUseCase;
+  FTraderInput.Event.OnSave.Subscribe(Self, procedure begin
+    PageControl.ActivePage := TabTraderView;
   end);
 
-  AdapterOutServerController := PlaceOn<TAdapterOutServerController>(TabServerUseCase);
-  AdapterIndicatorControl := PlaceOn<TAdapterIndicatorControl>(TabTraderUseCase);
+  alphaSvrView := PlaceOn<TalphaSvrView>(TabAlphaSvrView);
+  traderView := PlaceOn<TtraderView>(TabTraderView);
 end;
 
 end.

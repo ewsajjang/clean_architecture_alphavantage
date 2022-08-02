@@ -1,9 +1,9 @@
-﻿unit adapterOut.qry.traderPersistence;
+﻿unit trader.output.dbQry;
 
 interface
 
 uses
-  portOut.qry.traderUseCase, domain.traderEntities,
+  trader.output, trader.entities,
 
   wp.Aurelius.Engine.ObjectManager,
 
@@ -14,12 +14,12 @@ uses
   ;
 
 type
-  TQryTraderAdapter = class(TwpLogObject, IQryTraderUseCase)
+  TTraderOuputDBQry = class(TwpLogObject, ITraderOutputQry)
   private
     FObjMng: TAureliusObjMngThread;
-    FEvent: TQryTraderUseCaseEventClass;
+    FEvent: TTraderOuputQryEventClass;
     FIndicators: TList<TIndicator>;
-    function GetEvent: TQryTraderUseCaseEventClass;
+    function GetEvent: TTraderOuputQryEventClass;
   public
     constructor Create;
     destructor Destroy; override;
@@ -27,7 +27,7 @@ type
     procedure LoadIndicator;
     procedure LoadRawData(AIndicator: TIndicator);
 
-    property Event: TQryTraderUseCaseEventClass read GetEvent;
+    property Event: TTraderOuputQryEventClass read GetEvent;
   end;
 
 implementation
@@ -38,9 +38,9 @@ uses
   Aurelius.Engine.ObjectManager, Aurelius.Criteria.Base, Aurelius.Criteria.Linq
   ;
 
-{ TQryTraderAdapter }
+{ TTraderOuputDBQry }
 
-constructor TQryTraderAdapter.Create;
+constructor TTraderOuputDBQry.Create;
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
@@ -51,7 +51,7 @@ begin
   FEvent.OnLoadRawDatas := TEvent<TProc>.Create;
 end;
 
-destructor TQryTraderAdapter.Destroy;
+destructor TTraderOuputDBQry.Destroy;
 begin
   FObjMng.Terminate;
   if Assigned(FIndicators) then
@@ -60,12 +60,12 @@ begin
   inherited;
 end;
 
-function TQryTraderAdapter.GetEvent: TQryTraderUseCaseEventClass;
+function TTraderOuputDBQry.GetEvent: TTraderOuputQryEventClass;
 begin
   Result := FEvent;
 end;
 
-procedure TQryTraderAdapter.LoadIndicator;
+procedure TTraderOuputDBQry.LoadIndicator;
 begin
   FObjMng.ASync<TIndicator>(
     procedure(AMng: TObjectManager)
@@ -88,7 +88,7 @@ begin
     end);
 end;
 
-procedure TQryTraderAdapter.LoadRawData(AIndicator: TIndicator);
+procedure TTraderOuputDBQry.LoadRawData(AIndicator: TIndicator);
 begin
 
 end;

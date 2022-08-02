@@ -1,9 +1,9 @@
-﻿unit portOut.qry.traderUseCase;
+﻿unit trader.output.intf.qry;
 
 interface
 
 uses
-  domain.traderEntities,
+  trader.entities,
 
   wp.Event,
 
@@ -11,20 +11,19 @@ uses
   ;
 
 type
-  TQryTraderUseCaseEvent = class;
-  TQryTraderUseCaseEventClass = class of TQryTraderUseCaseEvent;
-
-  IQryTraderUseCase = interface
+  TTraderOuputQryEvent = class;
+  TTraderOuputQryEventClass = class of TTraderOuputQryEvent;
+  ITraderOutputQry = interface
     ['{1516F952-0B3A-4E72-B831-93E8C12B80FD}']
-    function GetEvent: TQryTraderUseCaseEventClass;
+    function GetEvent: TTraderOuputQryEventClass;
 
     procedure LoadIndicator;
     procedure LoadRawData(AIndicator: TIndicator);
 
-    property Event: TQryTraderUseCaseEventClass read GetEvent;
+    property Event: TTraderOuputQryEventClass read GetEvent;
   end;
 
-  TQryTraderUseCaseEvent = class
+  TTraderOuputQryEvent = class
   class var
     OnLoadIndicators: IEvent<TProc<TIndicatorList>>;
     OnLoadRawDatas: IEvent<TProc>;

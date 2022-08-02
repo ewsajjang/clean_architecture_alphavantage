@@ -1,4 +1,4 @@
-﻿unit domain.traderEntities;
+﻿unit trader.entities;
 
 interface
 

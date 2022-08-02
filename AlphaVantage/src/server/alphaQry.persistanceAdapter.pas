@@ -1,9 +1,9 @@
-﻿unit adapterOut.qry.serverPersistence;
+﻿unit alphaQry.persistanceAdapter;
 
 interface
 
 uses
-  domain.serverEntities, portOut.qry.serverUseCase,
+  alphaQry.entities, alphaQry.outputPort,
 
   m.httpClient, m.httpAdapter, wp.log, wp.Event,
 
@@ -12,13 +12,13 @@ uses
   ;
 
 type
-  TQryServerAdapter = class(TCustomHttpAdapter, IQryServerUseCase)
+  TAlphaQryPersistenceAdapter = class(TCustomHttpAdapter, IAlphaQryOutputPort)
   private
-    FEvent: TQryServerEventClass;
+    FEvent: TAlphaQryOutputPortEventClass;
     FInflationRsp: TAlphaBody;
     FCpiRsp: TAlphaBody;
     FYield10YRsp: TAlphaBody;
-    function GetEvent: TQryServerEventClass;
+    function GetEvent: TAlphaQryOutputPortEventClass;
     function GetBodyEntities: TArray<TAlphaBody>;
     function GetInflation: TAlphaBody;
     function GetCpi: TAlphaBody;
@@ -34,9 +34,9 @@ type
 
 implementation
 
-{ TQryServerAdapter }
+{ TAlphaQryPersistenceAdapter }
 
-constructor TQryServerAdapter.Create;
+constructor TAlphaQryPersistenceAdapter.Create;
 begin
   inherited Create;
 
@@ -48,7 +48,7 @@ begin
   FEvent.OnYield10Y := TEvent<TProc>.Create;
 end;
 
-destructor TQryServerAdapter.Destroy;
+destructor TAlphaQryPersistenceAdapter.Destroy;
 begin
   if Assigned(FInflationRsp) then
     FInflationRsp.Free;
@@ -62,32 +62,32 @@ begin
   inherited;
 end;
 
-function TQryServerAdapter.GetBodyEntities: TArray<TAlphaBody>;
+function TAlphaQryPersistenceAdapter.GetBodyEntities: TArray<TAlphaBody>;
 begin
   Result := TArray<TAlphaBody>.Create(FInflationRsp, FCpiRsp, FYield10YRsp);
 end;
 
-function TQryServerAdapter.GetCpi: TAlphaBody;
+function TAlphaQryPersistenceAdapter.GetCpi: TAlphaBody;
 begin
   Result := FCpiRsp;
 end;
 
-function TQryServerAdapter.GetEvent: TQryServerEventClass;
+function TAlphaQryPersistenceAdapter.GetEvent: TAlphaQryOutputPortEventClass;
 begin
   Result := FEvent;
 end;
 
-function TQryServerAdapter.GetInflation: TAlphaBody;
+function TAlphaQryPersistenceAdapter.GetInflation: TAlphaBody;
 begin
   Result := FInflationRsp;
 end;
 
-function TQryServerAdapter.GetYield10Y: TAlphaBody;
+function TAlphaQryPersistenceAdapter.GetYield10Y: TAlphaBody;
 begin
   Result := FYield10YRsp;
 end;
 
-procedure TQryServerAdapter.ReqCpi;
+procedure TAlphaQryPersistenceAdapter.ReqCpi;
 begin
   ASync(TAlphaCpiTask.Create(
     procedure(ATask: THttpClientTask)
@@ -106,7 +106,7 @@ begin
     end));
 end;
 
-procedure TQryServerAdapter.ReqInflation;
+procedure TAlphaQryPersistenceAdapter.ReqInflation;
 begin
   ASync(TAlphaInflationTask.Create(
     procedure(ATask: THttpClientTask)
@@ -125,7 +125,7 @@ begin
     end));
 end;
 
-procedure TQryServerAdapter.ReqYield10Y;
+procedure TAlphaQryPersistenceAdapter.ReqYield10Y;
 begin
   ASync(TAlphaYield10YTask.Create(
     procedure(ATask: THttpClientTask)

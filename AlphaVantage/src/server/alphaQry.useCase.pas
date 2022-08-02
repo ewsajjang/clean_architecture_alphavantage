@@ -1,9 +1,9 @@
-﻿unit service.qry.server;
+﻿unit alphaQry.useCase;
 
 interface
 
 uses
-  portOut.qry.serverUseCase,
+  alphaQry.outputPort,
 
   wp.log,
 
@@ -11,16 +11,16 @@ uses
 
 type
   TDataModule = TwpLogDataModule;
-  TserviceCmdServer = class(TDataModule)
+  TalphaQryUserCase = class(TDataModule)
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private
-    FQryServerUserCase: IQryServerUseCase;
+    FOutputPort: IAlphaQryOutputPort;
   public
   end;
 
 var
-  serviceCmdServer: TserviceCmdServer;
+  alphaQryUserCase: TalphaQryUserCase;
 
 implementation
 
@@ -34,16 +34,16 @@ uses
 
 { TalphaAdapterServerController }
 
-procedure TserviceCmdServer.DataModuleCreate(Sender: TObject);
+procedure TalphaQryUserCase.DataModuleCreate(Sender: TObject);
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
-  FQryServerUserCase := GlobalContainer.Resolve<IQryServerUseCase>;
+  FOutputPort := GlobalContainer.Resolve<IAlphaQryOutputPort>;
 end;
 
-procedure TserviceCmdServer.DataModuleDestroy(Sender: TObject);
+procedure TalphaQryUserCase.DataModuleDestroy(Sender: TObject);
 begin
-  GlobalContainer.Release(FQryServerUserCase);
+  GlobalContainer.Release(FOutputPort);
 end;
 
 end.
