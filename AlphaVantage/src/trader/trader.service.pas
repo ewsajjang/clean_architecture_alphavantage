@@ -42,6 +42,8 @@ uses
 
 constructor TTraderService.Create;
 begin
+  inherited Create;
+
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
   FEvent.OnSave := TEvent<TProc>.Create;
