@@ -118,10 +118,6 @@
         </DCCReference>
         <DCCReference Include="trader\trader.entities.pas"/>
         <DCCReference Include="alphaSvr\alphaSvr.output.pas"/>
-        <DCCReference Include="alphaSvr\alphaSvr.service.pas">
-            <Form>alphaSvrService</Form>
-            <DesignClass>TDataModule</DesignClass>
-        </DCCReference>
         <DCCReference Include="..\__lib\m.httpClient.pas"/>
         <DCCReference Include="alphaSvr\alphaSvr.entities.pas"/>
         <DCCReference Include="factory.db.pas">
@@ -140,6 +136,7 @@
         <DCCReference Include="alphaSvr\alphaSvr.ouput.restQry.pas"/>
         <DCCReference Include="alphaSvr\alphaSvr.input.pas"/>
         <DCCReference Include="trader\trader.input.pas"/>
+        <DCCReference Include="alphaSvr\alphaSvr.service.pas"/>
         <None Include="logger.inc"/>
         <None Include="db.inc"/>
         <BuildConfiguration Include="Base">

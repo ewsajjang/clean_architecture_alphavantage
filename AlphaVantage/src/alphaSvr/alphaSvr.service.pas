@@ -7,41 +7,34 @@ uses
 
   wp.log, wp.Event, Spring.Container.Common,
 
-  System.SysUtils, System.Classes;
+  System.SysUtils, System.Classes
+  ;
 
 type
-  TDataModule = TwpLogDataModule;
-  TalphaSvrService = class(TDataModule, IAlphaSvrInput)
-    procedure DataModuleCreate(Sender: TObject);
-    procedure DataModuleDestroy(Sender: TObject);
-  private
-    function GetEvent: TAlphaSvrInputEventClass;
+  TalphaSvrService = class(TwpLogObject, IAlphaSvrInput)
   private
     FOutput: IAlphaSvrOutput;
-  public
     FEvent: TAlphaSvrInputEventClass;
-    procedure Sync;
+    function GetEvent: TAlphaSvrInputEventClass;
+  public
+    constructor Create;
+    destructor Destroy; override;
 
-    property Event: TAlphaSvrInputEventClass read GetEvent;
+    procedure Sync;
   end;
 
-var
-  alphaSvrService: TalphaSvrService;
-
 implementation
-
-{%CLASSGROUP 'Vcl.Controls.TControl'}
-
-{$R *.dfm}
 
 uses
   Spring.Container
   ;
 
-{ TalphaAdapterServerController }
+{ TalphaSvrService }
 
-procedure TalphaSvrService.DataModuleCreate(Sender: TObject);
+constructor TalphaSvrService.Create;
 begin
+  inherited Create;
+
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
   FEvent.OnInflation := TEvent<TProc>.Create;
@@ -72,9 +65,11 @@ begin
     end);
 end;
 
-procedure TalphaSvrService.DataModuleDestroy(Sender: TObject);
+destructor TalphaSvrService.Destroy;
 begin
   GlobalContainer.Release(FOutput);
+
+  inherited;
 end;
 
 function TalphaSvrService.GetEvent: TAlphaSvrInputEventClass;
