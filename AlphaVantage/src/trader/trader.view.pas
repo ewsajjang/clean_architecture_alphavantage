@@ -26,8 +26,8 @@ type
     procedure FormCreate(Sender: TObject);
   private
     FIndicators: TList<TIndicator>;
-    [Inject] FTraderInput: ITraderInput;
-    [Inject] FTraderOutputQry: ITraderOutputQry;
+    FTraderInput: ITraderInput;
+    FTraderOutputQry: ITraderOutputQry;
     procedure LoadIndicators(AList: TIndicatorList);
   public
   end;
@@ -47,6 +47,7 @@ procedure TtraderView.FormCreate(Sender: TObject);
 begin
   Log := TwpLoggerFactory.CreateSingle(ClassName);
 
+  FTraderOutputQry := GlobalContainer.Resolve<ITraderOutputQry>;
   FTraderOutputQry.Event.OnLoadIndicators.Subscribe(
     Self,
     procedure(AList: TIndicatorList)
@@ -55,6 +56,7 @@ begin
       LoadIndicators(FIndicators);
     end);
 
+  FTraderInput := GlobalContainer.Resolve<ITraderInput>;
   FTraderInput.Event.OnSave.Subscribe(
     Self,
     procedure

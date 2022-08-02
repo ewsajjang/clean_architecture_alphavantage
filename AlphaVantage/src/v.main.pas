@@ -17,7 +17,7 @@ type
     TabTraderView: TTabSheet;
     procedure FormCreate(Sender: TObject);
   private
-    [Inject] FTraderInput: ITraderInput;
+    FTraderInput: ITraderInput;
   public
   end;
 
@@ -36,6 +36,7 @@ uses
 
 procedure TvMain.FormCreate(Sender: TObject);
 begin
+  FTraderInput := GlobalContainer.Resolve<ITraderInput>;
   FTraderInput.Event.OnSave.Subscribe(Self, procedure begin
     PageControl.ActivePage := TabTraderView;
   end);

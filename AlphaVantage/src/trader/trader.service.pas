@@ -17,9 +17,8 @@ type
     FEvent: TTraderInputEventClass;
     function GetEvent: TTraderInputEventClass;
   private
-    [Inject] FTraderOutputQry: ITraderOutputQry;
+    FTraderOutputQry: ITraderOutputQry;
     FObjMng: TAureliusObjMngThread;
-    class constructor Create;
   public
 
     constructor Create;
@@ -49,11 +48,8 @@ begin
 
   FObjMng := TAureliusObjMngThread.Create(ClassName + '.MngTh', FactoryDB.Conn);
   FObjMng.Start;
-end;
 
-class constructor TTraderService.Create;
-begin
-  //GlobalContainer.Resolve<ITraderInput>;
+  FTraderOutputQry := GlobalContainer.Resolve<ITraderOutputQry>;
 end;
 
 destructor TTraderService.Destroy;

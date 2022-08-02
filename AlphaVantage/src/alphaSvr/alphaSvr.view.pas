@@ -34,9 +34,9 @@ type
     procedure ListCpiBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
     procedure ListYield10YBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect; AState: TOwnerDrawState);
   private
-    [Inject] FAlphaSvrInput: IAlphaSvrInput;
-    [Inject] FAlphaSvrOutput: IAlphaSvrOutput;
-    [Inject] FTraderInput: ITraderInput;
+    FAlphaSvrInput: IAlphaSvrInput;
+    FAlphaSvrOutput: IAlphaSvrOutput;
+    FTraderInput: ITraderInput;
   public
   end;
 
@@ -63,6 +63,7 @@ end;
 
 procedure TalphaSvrView.FormCreate(Sender: TObject);
 begin
+  FAlphaSvrInput := GlobalContainer.Resolve<IAlphaSvrInput>;
   FAlphaSvrInput.Event.OnInflation.Subscribe(
     Self,
     procedure
@@ -84,6 +85,9 @@ begin
       LabelYield10Y.Caption := FAlphaSvrOutput.Yield10Y.ToLabelText;
       ListYield10Y.ItemCount := FAlphaSvrOutput.Yield10Y.DataCnt;
     end);
+
+  FAlphaSvrOutput := GlobalContainer.Resolve<IAlphaSvrOutput>;
+  FTraderInput := GlobalContainer.Resolve<ITraderInput>;
 end;
 
 procedure TalphaSvrView.ListCpiBeforeDrawItem(AIndex: Integer; ACanvas: TCanvas; ARect: TRect;

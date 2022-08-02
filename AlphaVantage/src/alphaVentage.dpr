@@ -40,10 +40,6 @@ begin
   GlobalContainer.RegisterType<TTraderOuputDBQry>.Implements<ITraderOutputQry>.AsSingleton;
 
   GlobalContainer.Build;
-  GlobalContainer.Resolve<IAlphaSvrInput>;
-  GlobalContainer.Resolve<IAlphaSvrOutput>;
-  GlobalContainer.Resolve<ITraderInput>;
-  GlobalContainer.Resolve<ITraderOutputQry>;
 
   Application.CreateForm(TvMain, vMain);
   Application.Run;

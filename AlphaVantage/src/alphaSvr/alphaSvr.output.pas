@@ -13,7 +13,7 @@ uses
 
 type
   TAlphaSvrOutputEvent = class
-  public class var
+  public
     class var OnInflation: IEvent<TProc>;
     class var OnCpi: IEvent<TProc>;
     class var OnYield10Y: IEvent<TProc>;
